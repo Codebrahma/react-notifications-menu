@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import Card from "./Card/Card";
 import PropTypes from "prop-types";
 import "./styles.css";
+import Spinner from "./Spinner/Spinner";
 
 class Notifications extends Component {
   constructor(props) {
@@ -47,11 +48,20 @@ class Notifications extends Component {
 
   fetchData = () => {
     //TODO fetch data
-    console.log("fetch data");
+
+    this.setState({ ...this.state, loading: true }, () => {
+      console.log("fetch data");
+
+      // setTimeout(() => {
+      //   this.setState({ ...this.state, loading: false }, () =>
+      //     console.log("fetch data")
+      //   );
+      // }, 1000);
+    });
   };
 
   render() {
-    const { show, classNamePrefix, styles } = this.state;
+    const { show, classNamePrefix, styles, loading } = this.state;
     const { markAllAsRead, displaySeeAll, iconClass } = this.props;
     const CustomComponent = this.props.renderItem;
     const { seeAll } = this.props.links;
@@ -100,6 +110,7 @@ class Notifications extends Component {
             ref={this.scrollRef}
           >
             {cardList}
+            <div className="loader">{loading && <Spinner />}</div>
           </div>
 
           {displaySeeAll && (

@@ -38,6 +38,12 @@ $title: #1d2129;
   :global(.notification-items) {
     height: 400px;
     overflow: auto;
+    :global(.loader) {
+      // border: 1px solid black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 
   :global(.notification-footer) {
