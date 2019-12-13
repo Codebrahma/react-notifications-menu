@@ -1,0 +1,57 @@
+.card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-bottom: 1px solid rgba(153, 153, 153, 0.3);
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  background-color: #edf2fa;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 6px;
+}
+
+.card:hover {
+  background-color: #ebedf0;
+}
+
+.card .content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.card .content .time {
+  color: #999;
+}
+
+.card .image {
+  margin: 5px;
+}
+
+.card .image img {
+  height: 2.5rem;
+  border-radius: 50%;
+}
+
+.card .options {
+  visibility: hidden;
+  text-align: center;
+  font-size: 20px;
+}
+
+.card .options .option {
+  cursor: pointer;
+  opacity: 0.5;
+  color: #999;
+}
+
+.card .options .option:hover {
+  opacity: 1;
+}
+
+.card:hover .options {
+  visibility: visible;
+}
+/*# sourceMappingURL=Card.css.map */

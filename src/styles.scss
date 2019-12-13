@@ -1,0 +1,54 @@
+$options: #365899;
+$title: #1d2129;
+
+:global(.notification-container) {
+  border: 1px solid rgba(100, 100, 100, 0.4);
+  width: 430px;
+  font-size: 12px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  position: absolute;
+  z-index: 1;
+  background-color: white;
+
+  :global(.notification-header) {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+
+    :global(.notification-title) {
+      color: $title;
+      font-weight: bold;
+    }
+
+    :global(.options) {
+      display: flex;
+      color: $options;
+
+      :global(.option) {
+        margin: 0 5px;
+
+        &:hover {
+          cursor: pointer;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  :global(.notification-items) {
+    height: 400px;
+    overflow: auto;
+  }
+
+  :global(.notification-footer) {
+    text-align: center;
+    padding: 5px;
+    color: $options;
+    text-transform: capitalize;
+    font-weight: bold;
+
+    :global(.notification-see_all) {
+      cursor: pointer;
+    }
+  }
+}

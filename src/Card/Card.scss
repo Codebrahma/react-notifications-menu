@@ -1,0 +1,57 @@
+$card-color: #edf2fa;
+$options-color: #999;
+$time: #9ea3ab;
+$card-hover: #ebedf0;
+
+.card {
+  display: flex;
+  border-bottom: 1px solid rgba(153, 153, 153, 0.3);
+  justify-content: space-between;
+  background-color: $card-color;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 6px;
+
+  &:hover {
+    background-color: $card-hover;
+  }
+
+  .content {
+    display: flex;
+
+    .time {
+      color: $options-color;
+    }
+  }
+
+  .image {
+    img {
+      height: 2.5rem;
+      border-radius: 50%;
+    }
+
+    margin: 5px;
+  }
+
+  .options {
+    visibility: hidden;
+    text-align: center;
+    font-size: 20px;
+
+    .option {
+      cursor: pointer;
+      opacity: 0.5;
+      color: $options-color;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  &:hover {
+    .options {
+      visibility: visible;
+    }
+  }
+}
