@@ -3,7 +3,11 @@ $options-color: #999;
 $time: #9ea3ab;
 $card-hover: #ebedf0;
 
-.card {
+:global(a) {
+  text-decoration: none;
+  color: $options-color;
+}
+:global(.card) {
   display: flex;
   border-bottom: 1px solid rgba(153, 153, 153, 0.3);
   justify-content: space-between;
@@ -16,15 +20,15 @@ $card-hover: #ebedf0;
     background-color: $card-hover;
   }
 
-  .content {
+  :global(.content) {
     display: flex;
 
-    .time {
+    :global(.time) {
       color: $options-color;
     }
   }
 
-  .image {
+  :global(.image) {
     img {
       height: 2.5rem;
       border-radius: 50%;
@@ -33,12 +37,12 @@ $card-hover: #ebedf0;
     margin: 5px;
   }
 
-  .options {
+  :global(.options) {
     visibility: hidden;
     text-align: center;
     font-size: 20px;
 
-    .option {
+    :global(.option) {
       cursor: pointer;
       opacity: 0.5;
       color: $options-color;
@@ -50,7 +54,7 @@ $card-hover: #ebedf0;
   }
 
   &:hover {
-    .options {
+    :global(.options) {
       visibility: visible;
     }
   }

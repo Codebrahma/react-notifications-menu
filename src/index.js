@@ -8,11 +8,11 @@ class Notifications extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      show: false,
+      show: true,
       loading: false,
       data: this.props.data,
-      styles: this.props.style || {},
-      classNamePrefix: this.props.classNamePrefix || ""
+      styles: this.props.style || {}
+      // classNamePrefix: this.props.classNamePrefix || ""
     };
     this.scrollRef = React.createRef();
     this.notificationRef = React.createRef();
@@ -61,8 +61,13 @@ class Notifications extends Component {
   };
 
   render() {
-    const { show, classNamePrefix, styles, loading } = this.state;
-    const { markAllAsRead, displaySeeAll, iconClass } = this.props;
+    const { show, styles, loading, data } = this.state;
+    const {
+      markAllAsRead,
+      displaySeeAll,
+      iconClass,
+      classNamePrefix
+    } = this.props;
     const CustomComponent = this.props.renderItem;
     const { seeAll } = this.props.links;
 
@@ -80,27 +85,39 @@ class Notifications extends Component {
 
     return (
       <Fragment>
-        <i
-          className={iconClass}
-          style={{
-            fontSize: "2rem",
-            color: show ? "grey" : "#142545"
-          }}
-          onClick={() => this.setState({ show: !show })}
-        ></i>
+        <div className="notification-icon">
+          <i
+            className={iconClass}
+            style={{
+              fontSize: "2rem",
+              color: show ? "grey" : "#142545"
+            }}
+            onClick={() => this.setState({ show: !show })}
+          ></i>
+          <div className={`${classNamePrefix}notification-count`}>
+            {Object.keys(data).length}
+          </div>
+        </div>
 
         <div
           className={`${classNamePrefix}notification-container`}
           ref={this.notificationRef}
-          style={{ ...styles, visibility: show ? "visible" : "hidden" }}
+          style={{
+            ...styles,
+            visibility: show ? "visible" : "hidden",
+            opacity: show ? 1 : 0
+          }}
         >
           <div className={`${classNamePrefix}notification-header`}>
             <div className={`${classNamePrefix}notification-title`}>
-              Notifications
+              {this.props.header.title}
             </div>
-            <div className="options">
-              <div className="option" onClick={markAllAsRead}>
-                Mark all as read
+            <div className={`${classNamePrefix}options`}>
+              <div
+                className={`${classNamePrefix}option`}
+                onClick={markAllAsRead}
+              >
+                {this.props.header.option}
               </div>
             </div>
           </div>
@@ -114,9 +131,11 @@ class Notifications extends Component {
           </div>
 
           {displaySeeAll && (
-            <div className="notification-footer">
+            <div className={`${classNamePrefix}notification-footer`}>
               <a href={seeAll}>
-                <span className="notification-see_all">see all</span>
+                <span className={`${classNamePrefix}notification-see_all`}>
+                  see all
+                </span>
               </a>
             </div>
           )}
@@ -129,7 +148,10 @@ class Notifications extends Component {
 Notifications.defaultProps = {
   displaySeeAll: true,
   CustomComponent: null,
-  iconClass: "fas fa-bell"
+  iconClass: "fas fa-bell",
+  header: { title: "Notifications", option: "Mark all as read" },
+  classNamePrefix: "",
+  cardOptions: true
 };
 
 Notifications.propTypes = {

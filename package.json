@@ -58,5 +58,7 @@
   "files": [
     "dist"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "yarn": "^1.21.1"
+  }
 }

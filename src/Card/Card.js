@@ -1,8 +1,16 @@
 import React from "react";
-import classes from "./Card.css";
+import "./Card.css";
 
 const Card = props => {
-  const { image, message, receivedTime, imagePosition } = props;
+  const {
+    image,
+    message,
+    receivedTime,
+    imagePosition,
+    classNamePrefix,
+    detailPage,
+    cardOptions
+  } = props;
 
   const renderImage = props.hasOwnProperty("renderImage")
     ? props.renderImage
@@ -11,25 +19,29 @@ const Card = props => {
   const style =
     imagePosition === "right" ? { flexDirection: "row-reverse" } : null;
   return (
-    <div className={classes.card}>
-      <div className={classes.content} style={style}>
-        {renderImage ? (
-          <div className={classes.image}>
-            <img src={image} alt="Person " />
+    <a href={detailPage}>
+      <div className={`${classNamePrefix}card`}>
+        <div className={`${classNamePrefix}content`} style={style}>
+          {renderImage ? (
+            <div className={`${classNamePrefix}image`}>
+              <img src={image} alt="Person " />
+            </div>
+          ) : null}
+          <div className={`${classNamePrefix}message`}>
+            <div className="text">{message}</div>
+            {receivedTime && <div className="time">{receivedTime}</div>}
           </div>
-        ) : null}
-        <div className={classes.message}>
-          <div className={classes.text}>{message}</div>
-          <div className={classes.time}>{receivedTime}</div>
         </div>
+        {cardOptions && (
+          <div className={`${classNamePrefix}options`}>
+            <div className={`${classNamePrefix}option`}>&hellip;</div>
+            <div className={`${classNamePrefix}option`} title="Mark as Read">
+              &bull;
+            </div>
+          </div>
+        )}
       </div>
-      <div className={classes.options}>
-        <div className={classes.option}>&hellip;</div>
-        <div className={classes.option} title="Mark as Read">
-          &bull;
-        </div>
-      </div>
-    </div>
+    </a>
   );
 };
 
