@@ -12,6 +12,7 @@ $card-hover: #ebedf0;
   border-bottom: 1px solid rgba(153, 153, 153, 0.3);
   justify-content: space-between;
   background-color: $card-color;
+
   font-size: 12px;
   cursor: pointer;
   padding: 6px;
@@ -22,7 +23,7 @@ $card-hover: #ebedf0;
 
   :global(.content) {
     display: flex;
-
+    color: black;
     :global(.time) {
       color: $options-color;
     }

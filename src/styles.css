@@ -83,5 +83,6 @@
 
 :global(.notification-container) :global(.notification-footer) :global(.notification-see_all) {
   cursor: pointer;
+  color: #365899;
 }
 /*# sourceMappingURL=styles.css.map */

@@ -20,22 +20,50 @@ const Card = props => {
     imagePosition === "right" ? { flexDirection: "row-reverse" } : null;
   return (
     <a href={detailPage}>
-      <div className={`${classNamePrefix}card`}>
-        <div className={`${classNamePrefix}content`} style={style}>
+      <div className={classNamePrefix ? `${classNamePrefix}-card` : "card"}>
+        <div
+          className={classNamePrefix ? `${classNamePrefix}-content` : "content"}
+          style={style}
+        >
           {renderImage ? (
-            <div className={`${classNamePrefix}image`}>
+            <div
+              className={classNamePrefix ? `${classNamePrefix}-image` : "image"}
+            >
               <img src={image} alt="Person " />
             </div>
           ) : null}
-          <div className={`${classNamePrefix}message`}>
-            <div className="text">{message}</div>
+          <div
+            className={
+              classNamePrefix ? `${classNamePrefix}-message` : "message"
+            }
+          >
+            <div
+              className={classNamePrefix ? `${classNamePrefix}-text` : "text"}
+            >
+              {message}
+            </div>
             {receivedTime && <div className="time">{receivedTime}</div>}
           </div>
         </div>
         {cardOptions && (
-          <div className={`${classNamePrefix}options`}>
-            <div className={`${classNamePrefix}option`}>&hellip;</div>
-            <div className={`${classNamePrefix}option`} title="Mark as Read">
+          <div
+            className={
+              classNamePrefix ? `${classNamePrefix}-options` : "options"
+            }
+          >
+            <div
+              className={
+                classNamePrefix ? `${classNamePrefix}-option` : "option"
+              }
+            >
+              &hellip;
+            </div>
+            <div
+              className={
+                classNamePrefix ? `${classNamePrefix}-option` : "option"
+              }
+              title="Mark as Read"
+            >
               &bull;
             </div>
           </div>

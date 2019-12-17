@@ -25,6 +25,7 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  color: black;
 }
 
 :global(.card) :global(.content) :global(.time) {

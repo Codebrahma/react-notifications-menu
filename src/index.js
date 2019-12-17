@@ -8,11 +8,10 @@ class Notifications extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      show: true,
+      show: false,
       loading: false,
       data: this.props.data,
       styles: this.props.style || {}
-      // classNamePrefix: this.props.classNamePrefix || ""
     };
     this.scrollRef = React.createRef();
     this.notificationRef = React.createRef();
@@ -66,8 +65,10 @@ class Notifications extends Component {
       markAllAsRead,
       displaySeeAll,
       iconClass,
-      classNamePrefix
+      classNamePrefix,
+      icon
     } = this.props;
+
     const CustomComponent = this.props.renderItem;
     const { seeAll } = this.props.links;
 
@@ -85,22 +86,46 @@ class Notifications extends Component {
 
     return (
       <Fragment>
-        <div className="notification-icon">
-          <i
-            className={iconClass}
-            style={{
-              fontSize: "2rem",
-              color: show ? "grey" : "#142545"
-            }}
-            onClick={() => this.setState({ show: !show })}
-          ></i>
-          <div className={`${classNamePrefix}notification-count`}>
+        <div
+          className={
+            classNamePrefix
+              ? `${classNamePrefix}-notification-icon`
+              : "notification-icon"
+          }
+        >
+          {icon ? (
+            <img
+              src={icon}
+              alt="notify"
+              onClick={() => this.setState({ show: !show })}
+            />
+          ) : (
+            <i
+              className={iconClass}
+              style={{
+                fontSize: "2rem",
+                color: show ? "grey" : "#142545"
+              }}
+              onClick={() => this.setState({ show: !show })}
+            ></i>
+          )}
+          <div
+            className={
+              classNamePrefix
+                ? `${classNamePrefix}-notification-count`
+                : "notification-count"
+            }
+          >
             {Object.keys(data).length}
           </div>
         </div>
 
         <div
-          className={`${classNamePrefix}notification-container`}
+          className={
+            classNamePrefix
+              ? `${classNamePrefix}-notification-container`
+              : "notification-container"
+          }
           ref={this.notificationRef}
           style={{
             ...styles,
@@ -108,13 +133,31 @@ class Notifications extends Component {
             opacity: show ? 1 : 0
           }}
         >
-          <div className={`${classNamePrefix}notification-header`}>
-            <div className={`${classNamePrefix}notification-title`}>
+          <div
+            className={
+              classNamePrefix
+                ? `${classNamePrefix}-notification-header`
+                : "notification-header"
+            }
+          >
+            <div
+              className={
+                classNamePrefix
+                  ? `${classNamePrefix}-notification-title`
+                  : "notification-title"
+              }
+            >
               {this.props.header.title}
             </div>
-            <div className={`${classNamePrefix}options`}>
+            <div
+              className={
+                classNamePrefix ? `${classNamePrefix}-options` : "options"
+              }
+            >
               <div
-                className={`${classNamePrefix}option`}
+                className={
+                  classNamePrefix ? `${classNamePrefix}-option` : "option"
+                }
                 onClick={markAllAsRead}
               >
                 {this.props.header.option}
@@ -123,7 +166,11 @@ class Notifications extends Component {
           </div>
 
           <div
-            className={`${classNamePrefix}notification-items`}
+            className={
+              classNamePrefix
+                ? `${classNamePrefix}-notification-items`
+                : "notification-items"
+            }
             ref={this.scrollRef}
           >
             {cardList}
@@ -131,9 +178,21 @@ class Notifications extends Component {
           </div>
 
           {displaySeeAll && (
-            <div className={`${classNamePrefix}notification-footer`}>
+            <div
+              className={
+                classNamePrefix
+                  ? `${classNamePrefix}-notification-footer`
+                  : "notification-footer"
+              }
+            >
               <a href={seeAll}>
-                <span className={`${classNamePrefix}notification-see_all`}>
+                <span
+                  className={
+                    classNamePrefix
+                      ? `${classNamePrefix}-notification-see_all`
+                      : "notification-see_all"
+                  }
+                >
                   see all
                 </span>
               </a>
