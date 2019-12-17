@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from "react";
 import Card from "./Card/Card";
 import PropTypes from "prop-types";
-import "./styles.css";
 import Spinner from "./Spinner/Spinner";
+import "./styles.css";
 
 class Notifications extends Component {
   constructor(props) {
@@ -35,27 +35,21 @@ class Notifications extends Component {
         }
       });
     }
-    scrollRef.addEventListener("scroll", () => {
-      if (
-        scrollRef.scrollTop + scrollRef.clientHeight >=
-        scrollRef.scrollHeight
-      ) {
-        this.fetchData();
-      }
-    });
+    if (Object.keys(this.state.data).length > 0) {
+      scrollRef.addEventListener("scroll", () => {
+        if (
+          scrollRef.scrollTop + scrollRef.clientHeight >=
+          scrollRef.scrollHeight
+        ) {
+          this.fetchData();
+        }
+      });
+    }
   }
 
   fetchData = () => {
-    //TODO fetch data
-
     this.setState({ ...this.state, loading: true }, () => {
       console.log("fetch data");
-
-      // setTimeout(() => {
-      //   this.setState({ ...this.state, loading: false }, () =>
-      //     console.log("fetch data")
-      //   );
-      // }, 1000);
     });
   };
 
@@ -69,6 +63,7 @@ class Notifications extends Component {
       icon
     } = this.props;
 
+    const dataLength = Object.keys(data).length;
     const CustomComponent = this.props.renderItem;
     const { seeAll } = this.props.links;
 
@@ -103,21 +98,23 @@ class Notifications extends Component {
             <i
               className={iconClass}
               style={{
-                fontSize: "2rem",
+                fontSize: "1.5rem",
                 color: show ? "grey" : "#142545"
               }}
               onClick={() => this.setState({ show: !show })}
             ></i>
           )}
-          <div
-            className={
-              classNamePrefix
-                ? `${classNamePrefix}-notification-count`
-                : "notification-count"
-            }
-          >
-            {Object.keys(data).length}
-          </div>
+          {dataLength > 0 && (
+            <div
+              className={
+                classNamePrefix
+                  ? `${classNamePrefix}-notification-count`
+                  : "notification-count"
+              }
+            >
+              {Object.keys(data).length}
+            </div>
+          )}
         </div>
 
         <div
@@ -173,8 +170,22 @@ class Notifications extends Component {
             }
             ref={this.scrollRef}
           >
-            {cardList}
-            <div className="loader">{loading && <Spinner />}</div>
+            {dataLength > 0 ? (
+              <Fragment>
+                {cardList}
+                <div className="loader">{loading && <Spinner />}</div>
+              </Fragment>
+            ) : (
+              <div
+                className={
+                  classNamePrefix
+                    ? `${classNamePrefix}-empty-notifications`
+                    : "empty-notifications"
+                }
+              >
+                <div>No Notifications</div>
+              </div>
+            )}
           </div>
 
           {displaySeeAll && (

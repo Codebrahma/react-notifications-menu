@@ -73,6 +73,19 @@
           justify-content: center;
 }
 
+:global(.notification-container) :global(.empty-notifications) {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: inherit;
+}
+
 :global(.notification-container) :global(.notification-footer) {
   text-align: center;
   padding: 5px;

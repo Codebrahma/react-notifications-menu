@@ -53,6 +53,7 @@ $title: #1d2129;
   :global(.notification-items) {
     height: 400px;
     overflow: auto;
+
     :global(.loader) {
       // border: 1px solid black;
       display: flex;
@@ -60,7 +61,12 @@ $title: #1d2129;
       justify-content: center;
     }
   }
-
+  :global(.empty-notifications) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: inherit;
+  }
   :global(.notification-footer) {
     text-align: center;
     padding: 5px;
