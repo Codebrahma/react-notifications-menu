@@ -21,6 +21,12 @@ class Notifications extends Component {
     const notificationRef = this.notificationRef.current;
     const scrollRef = this.scrollRef.current;
 
+    const script = document.createElement("script");
+    script.src = "https://kit.fontawesome.com/277fa697ed.js";
+    script.crossOrigin = "anonymous";
+    script.async = true;
+    document.body.appendChild(script);
+
     if (typeof this.props.data === "string") {
       fetch(this.state.data)
         .then(response => response.json())

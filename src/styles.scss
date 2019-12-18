@@ -3,6 +3,8 @@ $title: #1d2129;
 
 :global(.notification-icon) {
   position: relative;
+  height: 2rem;
+  width: 2rem;
   :global(.notification-count) {
     position: absolute;
     top: 0;

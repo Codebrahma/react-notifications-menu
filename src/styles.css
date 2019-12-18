@@ -1,5 +1,7 @@
 :global(.notification-icon) {
   position: relative;
+  height: 2rem;
+  width: 2rem;
 }
 
 :global(.notification-icon) :global(.notification-count) {

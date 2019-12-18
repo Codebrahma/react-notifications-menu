@@ -59,6 +59,7 @@
     "dist"
   ],
   "dependencies": {
+    "font-awesome": "^4.7.0",
     "yarn": "^1.21.1"
   }
 }
