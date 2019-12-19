@@ -5,6 +5,9 @@ $title: #1d2129;
   position: relative;
   height: 2rem;
   width: 2rem;
+  :global(img) {
+    cursor: pointer;
+  }
   :global(.notification-count) {
     position: absolute;
     top: 0;
@@ -32,22 +35,18 @@ $title: #1d2129;
     justify-content: space-between;
     padding: 8px;
 
-    :global(.notification-title) {
+    :global(.header-title) {
       color: $title;
       font-weight: bold;
     }
 
-    :global(.options) {
-      display: flex;
+    :global(.header-option) {
+      margin: 0 5px;
       color: $options;
 
-      :global(.option) {
-        margin: 0 5px;
-
-        &:hover {
-          cursor: pointer;
-          text-decoration: underline;
-        }
+      &:hover {
+        cursor: pointer;
+        text-decoration: underline;
       }
     }
   }

@@ -36,7 +36,8 @@ class Notifications extends Component {
 
     if (notificationRef.offsetLeft > notificationRef.offsetWidth) {
       this.setState({
-        style: {
+        styles: {
+          ...this.state.styles,
           transform: `translateX(-${notificationRef.offsetWidth}px)`
         }
       });
@@ -61,13 +62,7 @@ class Notifications extends Component {
 
   render() {
     const { show, styles, loading, data } = this.state;
-    const {
-      markAllAsRead,
-      displaySeeAll,
-      iconClass,
-      classNamePrefix,
-      icon
-    } = this.props;
+    const { displaySeeAll, fasIconClass, classNamePrefix, icon } = this.props;
 
     const dataLength = Object.keys(data).length;
     const CustomComponent = this.props.renderItem;
@@ -98,14 +93,16 @@ class Notifications extends Component {
             <img
               src={icon}
               alt="notify"
+              style={{ cursor: "pointer" }}
               onClick={() => this.setState({ show: !show })}
             />
           ) : (
             <i
-              className={iconClass}
+              className={fasIconClass}
               style={{
                 fontSize: "1.5rem",
-                color: show ? "grey" : "#142545"
+                color: show ? "grey" : "#142545",
+                cursor: "pointer"
               }}
               onClick={() => this.setState({ show: !show })}
             ></i>
@@ -146,25 +143,22 @@ class Notifications extends Component {
             <div
               className={
                 classNamePrefix
-                  ? `${classNamePrefix}-notification-title`
-                  : "notification-title"
+                  ? `${classNamePrefix}-header-title`
+                  : "header-title"
               }
             >
               {this.props.header.title}
             </div>
+
             <div
               className={
-                classNamePrefix ? `${classNamePrefix}-options` : "options"
+                classNamePrefix
+                  ? `${classNamePrefix}-header-option`
+                  : "header-option"
               }
+              onClick={this.props.header.option.onClick}
             >
-              <div
-                className={
-                  classNamePrefix ? `${classNamePrefix}-option` : "option"
-                }
-                onClick={markAllAsRead}
-              >
-                {this.props.header.option}
-              </div>
+              {this.props.header.option.name}
             </div>
           </div>
 
@@ -222,16 +216,19 @@ class Notifications extends Component {
 }
 
 Notifications.defaultProps = {
+  data: {},
   displaySeeAll: true,
   CustomComponent: null,
-  iconClass: "fas fa-bell",
-  header: { title: "Notifications", option: "Mark all as read" },
+  fasIconClass: "fas fa-bell",
+  header: {
+    title: "Notifications",
+    option: { name: "Mark all as read", onClick: () => {} }
+  },
   classNamePrefix: "",
   cardOptions: true
 };
 
 Notifications.propTypes = {
-  markAllAsRead: PropTypes.func.isRequired,
   links: PropTypes.objectOf(PropTypes.string)
 };
 

@@ -4,6 +4,10 @@
   width: 2rem;
 }
 
+:global(.notification-icon) :global(img) {
+  cursor: pointer;
+}
+
 :global(.notification-icon) :global(.notification-count) {
   position: absolute;
   top: 0;
@@ -37,23 +41,17 @@
   padding: 8px;
 }
 
-:global(.notification-container) :global(.notification-header) :global(.notification-title) {
+:global(.notification-container) :global(.notification-header) :global(.header-title) {
   color: #1d2129;
   font-weight: bold;
 }
 
-:global(.notification-container) :global(.notification-header) :global(.options) {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+:global(.notification-container) :global(.notification-header) :global(.header-option) {
+  margin: 0 5px;
   color: #365899;
 }
 
-:global(.notification-container) :global(.notification-header) :global(.options) :global(.option) {
-  margin: 0 5px;
-}
-
-:global(.notification-container) :global(.notification-header) :global(.options) :global(.option):hover {
+:global(.notification-container) :global(.notification-header) :global(.header-option):hover {
   cursor: pointer;
   text-decoration: underline;
 }
