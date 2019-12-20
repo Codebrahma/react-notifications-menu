@@ -13,15 +13,13 @@ npm install --save cb-react-notifications
 ## Usage
 
 ```jsx
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
-import MyComponent from 'cb-react-notifications'
+import Notifications from "cb-react-notifications";
 
 class Example extends Component {
-  render () {
-    return (
-      <MyComponent />
-    )
+  render() {
+    return <Notifications />;
   }
 }
 ```
