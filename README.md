@@ -5,8 +5,7 @@
 
 [![NPM](https://img.shields.io/npm/v/cb-react-notifications.svg)](https://www.npmjs.com/package/cb-react-notifications) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-<p style={{display:'flex',justifyContent:'space-around'}}><img src="https://github.com/NaveenrajV/cb-react-notifications/blob/master/src/assets/default.gif" height="320px" title="Default"/>
-<img src="https://github.com/NaveenrajV/cb-react-notifications/blob/master/src/assets/okrjoy.gif" height="320px" title="Customized"/></p>
+<div style={{display:'flex',justifyContent:'space-around'}}><div><div style={{textAlign:"center"}}>Default</div><img src="https://github.com/NaveenrajV/cb-react-notifications/blob/master/src/assets/default.gif" height="320px"/></div><div><div style={{textAlign:"center"}}>Customized</div><img src="https://github.com/NaveenrajV/cb-react-notifications/blob/master/src/assets/okrjoy.gif" height="320px"/></div></div>
 
 ## Getting Started
 
