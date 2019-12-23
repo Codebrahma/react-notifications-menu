@@ -1,5 +1,3 @@
-import demo from "./notification_demo.gif"
-
 # cb-react-notifications
 
 > A React Component used to render notifications with default styles and also allows to customize entire notification component
@@ -7,7 +5,7 @@ import demo from "./notification_demo.gif"
 
 [![NPM](https://img.shields.io/npm/v/cb-react-notifications.svg)](https://www.npmjs.com/package/cb-react-notifications) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-<center><img src={demo} height="320px"/></center>
+![Demo gif](https://github.com/NaveenrajV/cb-react-notifications/blob/master/notification_demo.gif)
 
 ## Getting Started
 
