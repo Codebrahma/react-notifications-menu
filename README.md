@@ -5,7 +5,7 @@
 
 [![NPM](https://img.shields.io/npm/v/cb-react-notifications.svg)](https://www.npmjs.com/package/cb-react-notifications) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-![Demo gif](https://github.com/NaveenrajV/cb-react-notifications/blob/master/notification_demo.gif)
+<center><img src="https://github.com/NaveenrajV/cb-react-notifications/blob/master/notification_demo.gif" height="320px"/></center>
 
 ## Getting Started
 
