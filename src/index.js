@@ -187,7 +187,6 @@ Notifications.defaultProps = {
     title: "Notifications",
     option: { name: "Mark all as read", onClick: () => {} }
   },
-  classNamePrefix: "",
   cardOptions: true
 };
 
