@@ -1,5 +1,5 @@
 import React from "react";
-import "./Card.css";
+import "./Card.scss";
 
 const Card = props => {
   const {
@@ -9,61 +9,50 @@ const Card = props => {
     imagePosition,
     classNamePrefix,
     detailPage,
-    cardOptions
+    cardOptions,
+    renderImage
   } = props;
 
-  const renderImage = props.hasOwnProperty("renderImage")
-    ? props.renderImage
-    : true;
+  const classNameGenerator = () => {
+    const prefix = classNamePrefix ? `${classNamePrefix}-` : "";
+    const classes = {
+      card: `${prefix}card`,
+      content: `${prefix}content`,
+      image: `${prefix}image`,
+      options: `${prefix}options`,
+      option: `${prefix}option`,
+      message: `${prefix}message`,
+      text: `${prefix}text`,
+      time: `${prefix}time`
+    };
+    return classes;
+  };
 
-  const style =
-    imagePosition === "right" ? { flexDirection: "row-reverse" } : null;
+  const classes = classNameGenerator();
+
   return (
     <a href={detailPage}>
-      <div className={classNamePrefix ? `${classNamePrefix}-card` : "card"}>
+      <div className={classes.card}>
         <div
-          className={classNamePrefix ? `${classNamePrefix}-content` : "content"}
-          style={style}
+          className={classes.content}
+          style={
+            imagePosition === "right" ? { flexDirection: "row-reverse" } : {}
+          }
         >
           {renderImage ? (
-            <div
-              className={classNamePrefix ? `${classNamePrefix}-image` : "image"}
-            >
+            <div className={classes.image}>
               <img src={image} alt="Person " />
             </div>
           ) : null}
-          <div
-            className={
-              classNamePrefix ? `${classNamePrefix}-message` : "message"
-            }
-          >
-            <div
-              className={classNamePrefix ? `${classNamePrefix}-text` : "text"}
-            >
-              {message}
-            </div>
-            {receivedTime && <div className="time">{receivedTime}</div>}
+          <div className={classes.message}>
+            <div className={classes.text}>{message}</div>
+            {receivedTime && <div className={classes.time}>{receivedTime}</div>}
           </div>
         </div>
         {cardOptions && (
-          <div
-            className={
-              classNamePrefix ? `${classNamePrefix}-options` : "options"
-            }
-          >
-            <div
-              className={
-                classNamePrefix ? `${classNamePrefix}-option` : "option"
-              }
-            >
-              &hellip;
-            </div>
-            <div
-              className={
-                classNamePrefix ? `${classNamePrefix}-option` : "option"
-              }
-              title="Mark as Read"
-            >
+          <div className={classes.options}>
+            <div className={classes.options}>&hellip;</div>
+            <div className={classes.option} title="Mark as Read">
               &bull;
             </div>
           </div>
@@ -73,4 +62,8 @@ const Card = props => {
   );
 };
 
+Card.defaultProps = {
+  renderImage: true,
+  imagePosition: "left"
+};
 export default Card;

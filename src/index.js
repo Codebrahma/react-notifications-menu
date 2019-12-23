@@ -2,7 +2,8 @@ import React, { Component, Fragment } from "react";
 import Card from "./Card/Card";
 import PropTypes from "prop-types";
 import Spinner from "./Spinner/Spinner";
-import "./styles.css";
+import defaultIcon from "./assets/default_bell.svg";
+import "./styles.scss";
 
 class Notifications extends Component {
   constructor(props) {
@@ -11,8 +12,10 @@ class Notifications extends Component {
       show: false,
       loading: false,
       data: this.props.data,
-      styles: this.props.style || {}
+      styles: this.props.style || {},
+      classes: this.classNameGenerator()
     };
+
     this.scrollRef = React.createRef();
     this.notificationRef = React.createRef();
   }
@@ -20,12 +23,6 @@ class Notifications extends Component {
   componentDidMount() {
     const notificationRef = this.notificationRef.current;
     const scrollRef = this.scrollRef.current;
-
-    const script = document.createElement("script");
-    script.src = "https://kit.fontawesome.com/277fa697ed.js";
-    script.crossOrigin = "anonymous";
-    script.async = true;
-    document.body.appendChild(script);
 
     if (typeof this.props.data === "string") {
       fetch(this.state.data)
@@ -60,9 +57,28 @@ class Notifications extends Component {
     });
   };
 
+  classNameGenerator = () => {
+    const prefix = this.props.classNamePrefix
+      ? `${this.props.classNamePrefix}-`
+      : "";
+    const classes = {
+      "notification-icon": `${prefix}notification-icon`,
+      "notification-count": `${prefix}notification-count`,
+      "notification-container": `${prefix}notification-container`,
+      "notification-header": `${prefix}notification-header`,
+      "header-title": `${prefix}header-title`,
+      "header-option": `${prefix}header-option`,
+      "notification-items": `${prefix}notification-items`,
+      "empty-notifications": `${prefix}empty-notifications`,
+      "notification-footer": `${prefix}notification-footer`,
+      "notification-see_all": `${prefix}notification-see_all`
+    };
+    return classes;
+  };
+
   render() {
-    const { show, styles, loading, data } = this.state;
-    const { displaySeeAll, fasIconClass, classNamePrefix, icon } = this.props;
+    const { show, styles, loading, data, classes } = this.state;
+    const { displaySeeAll, icon } = this.props;
 
     const dataLength = Object.keys(data).length;
     const CustomComponent = this.props.renderItem;
@@ -82,50 +98,20 @@ class Notifications extends Component {
 
     return (
       <Fragment>
-        <div
-          className={
-            classNamePrefix
-              ? `${classNamePrefix}-notification-icon`
-              : "notification-icon"
-          }
-        >
-          {icon ? (
-            <img
-              src={icon}
-              alt="notify"
-              style={{ cursor: "pointer" }}
-              onClick={() => this.setState({ show: !show })}
-            />
-          ) : (
-            <i
-              className={fasIconClass}
-              style={{
-                fontSize: "1.5rem",
-                color: show ? "grey" : "#142545",
-                cursor: "pointer"
-              }}
-              onClick={() => this.setState({ show: !show })}
-            ></i>
-          )}
+        <div className={classes["notification-icon"]}>
+          <img
+            src={icon ? icon : defaultIcon}
+            alt="notify"
+            onClick={() => this.setState({ show: !show })}
+          />
+
           {dataLength > 0 && (
-            <div
-              className={
-                classNamePrefix
-                  ? `${classNamePrefix}-notification-count`
-                  : "notification-count"
-              }
-            >
-              {Object.keys(data).length}
-            </div>
+            <div className={classes["notification-count"]}>{dataLength}</div>
           )}
         </div>
 
         <div
-          className={
-            classNamePrefix
-              ? `${classNamePrefix}-notification-container`
-              : "notification-container"
-          }
+          className={classes["notification-container"]}
           ref={this.notificationRef}
           style={{
             ...styles,
@@ -133,79 +119,36 @@ class Notifications extends Component {
             opacity: show ? 1 : 0
           }}
         >
-          <div
-            className={
-              classNamePrefix
-                ? `${classNamePrefix}-notification-header`
-                : "notification-header"
-            }
-          >
-            <div
-              className={
-                classNamePrefix
-                  ? `${classNamePrefix}-header-title`
-                  : "header-title"
-              }
-            >
+          <div className={classes["notification-header"]}>
+            <div className={classes["header-title"]}>
               {this.props.header.title}
             </div>
 
             <div
-              className={
-                classNamePrefix
-                  ? `${classNamePrefix}-header-option`
-                  : "header-option"
-              }
+              className={classes["header-option"]}
               onClick={this.props.header.option.onClick}
             >
               {this.props.header.option.name}
             </div>
           </div>
 
-          <div
-            className={
-              classNamePrefix
-                ? `${classNamePrefix}-notification-items`
-                : "notification-items"
-            }
-            ref={this.scrollRef}
-          >
+          <div className={classes["notification-items"]} ref={this.scrollRef}>
             {dataLength > 0 ? (
               <Fragment>
                 {cardList}
                 <div className="loader">{loading && <Spinner />}</div>
               </Fragment>
             ) : (
-              <div
-                className={
-                  classNamePrefix
-                    ? `${classNamePrefix}-empty-notifications`
-                    : "empty-notifications"
-                }
-              >
+              <div className={classes["empty-notifications"]}>
                 <div>No Notifications</div>
               </div>
             )}
           </div>
 
           {displaySeeAll && (
-            <div
-              className={
-                classNamePrefix
-                  ? `${classNamePrefix}-notification-footer`
-                  : "notification-footer"
-              }
-            >
+            <div className={classes["notification-footer"]}>
               <a href={seeAll}>
-                <span
-                  className={
-                    classNamePrefix
-                      ? `${classNamePrefix}-notification-see_all`
-                      : "notification-see_all"
-                  }
-                >
-                  see all
-                </span>
+                <span className={classes["notification-see_all"]}>see all</span>
               </a>
             </div>
           )}

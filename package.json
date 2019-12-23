@@ -60,6 +60,7 @@
   ],
   "dependencies": {
     "font-awesome": "^4.7.0",
+    "node-sass": "^4.13.0",
     "yarn": "^1.21.1"
   }
 }
