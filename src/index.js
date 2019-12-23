@@ -38,7 +38,7 @@ class Notifications extends Component {
       this.setState({
         styles: {
           ...this.state.styles,
-          transform: `translateX(-${notificationRef.offsetWidth}px)`
+          transform: `translateX(-${notificationRef.offsetWidth - 20}px)`
         }
       });
     }
