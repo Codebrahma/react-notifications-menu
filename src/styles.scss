@@ -3,6 +3,8 @@ $title: #1d2129;
 
 :global(.notification-icon) {
   position: relative;
+  height: 2rem;
+  width: 1.8rem;
   :global(img) {
     height: 1.5rem;
     width: 1.5rem;
