@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
-import Card from "./Card/Card";
+import Card from "./Card";
 import PropTypes from "prop-types";
-import Spinner from "./Spinner/Spinner";
+import Spinner from "./Spinner";
 import defaultIcon from "./assets/default_bell.svg";
 import "./styles.scss";
 
