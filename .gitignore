@@ -9,6 +9,10 @@ build
 dist
 .rpt2_cache
 
+# example
+example
+.editorconfig
+
 # misc
 .DS_Store
 .env

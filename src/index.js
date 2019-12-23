@@ -23,14 +23,17 @@ class Notifications extends Component {
   componentDidMount() {
     const notificationRef = this.notificationRef.current;
     const scrollRef = this.scrollRef.current;
+    const data = this.props.data;
 
-    if (typeof this.props.data === "string") {
+    // If data is a URL
+    if (typeof data === "string" && this.validateURL(data)) {
       fetch(this.state.data)
         .then(response => response.json())
         .then(data => this.setState({ data }))
         .catch(err => console.log(err));
     }
 
+    // To make notification container to adjust based on window, if it is placed on right side
     if (notificationRef.offsetLeft > notificationRef.offsetWidth) {
       this.setState({
         styles: {
@@ -39,21 +42,39 @@ class Notifications extends Component {
         }
       });
     }
-    if (Object.keys(this.state.data).length > 0) {
-      scrollRef.addEventListener("scroll", () => {
-        if (
-          scrollRef.scrollTop + scrollRef.clientHeight >=
-          scrollRef.scrollHeight
-        ) {
-          this.fetchData();
-        }
-      });
+
+    if (this.props.fetchData) {
+      // Infinite scroll to notification container
+      if (Object.keys(this.state.data).length > 0) {
+        scrollRef.addEventListener("scroll", () => {
+          if (
+            scrollRef.scrollTop + scrollRef.clientHeight >=
+            scrollRef.scrollHeight
+          ) {
+            this.fetchData();
+          }
+        });
+      }
     }
   }
 
+  validateURL = myURL => {
+    const pattern = new RegExp(
+      "^(https?:\\/\\/)?" + // protocol
+      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|" + // domain name
+      "((\\d{1,3}\\.){3}\\d{1,3}))" + // ip (v4) address
+      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + //port
+      "(\\?[;&amp;a-z\\d%_.~+=-]*)?" + // query string
+        "(\\#[-a-z\\d_]*)?$",
+      "i"
+    );
+    return pattern.test(myURL);
+  };
+
   fetchData = () => {
     this.setState({ ...this.state, loading: true }, () => {
-      console.log("fetch data");
+      this.props.fetchData();
+      this.setState({ ...this.state, loading: false });
     });
   };
 
@@ -79,10 +100,9 @@ class Notifications extends Component {
   render() {
     const { show, styles, loading, data, classes } = this.state;
     const { displaySeeAll, icon } = this.props;
-
-    const dataLength = Object.keys(data).length;
-    const CustomComponent = this.props.renderItem;
     const { seeAll } = this.props.links;
+    const CustomComponent = this.props.renderItem;
+    const dataLength = Object.keys(data).length;
 
     const cardList = this.props.renderItem
       ? Object.keys(this.state.data).map(key => (
@@ -162,7 +182,7 @@ Notifications.defaultProps = {
   data: {},
   displaySeeAll: true,
   CustomComponent: null,
-  fasIconClass: "fas fa-bell",
+  fetchData: null,
   header: {
     title: "Notifications",
     option: { name: "Mark all as read", onClick: () => {} }
