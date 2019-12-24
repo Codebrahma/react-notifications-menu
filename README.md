@@ -5,13 +5,13 @@
 
 [![NPM](https://img.shields.io/npm/v/cb-react-notifications.svg)](https://www.npmjs.com/package/cb-react-notifications) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-<div style={{display:'flex'}}>
+<div style={{display:'flex',justifyContent:'space-around',textAlign:'center'}}>
   <div>
-    <div style={{textAlign:"center"}}>Default</div>
+    <div>Default</div>
     <img src="https://github.com/NaveenrajV/cb-react-notifications/blob/master/src/assets/default.gif" height="300px"/>
   </div>
   <div>
-    <div style={{textAlign:"center"}}>Customized</div>
+    <div>Customized</div>
     <img src="https://github.com/NaveenrajV/cb-react-notifications/blob/master/src/assets/okrjoy.gif" height="300px"/>
   </div>
 </div>
