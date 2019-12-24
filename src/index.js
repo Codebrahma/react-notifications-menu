@@ -18,12 +18,17 @@ class Notifications extends Component {
 
     this.scrollRef = React.createRef();
     this.notificationRef = React.createRef();
+    this.containerRef = React.createRef();
   }
 
   componentDidMount() {
     const notificationRef = this.notificationRef.current;
     const scrollRef = this.scrollRef.current;
     const data = this.props.data;
+
+    document.addEventListener("mousedown", event =>
+      this.handleClickOutside(event)
+    );
 
     // If data is a URL
     if (typeof data === "string" && this.validateURL(data)) {
@@ -56,6 +61,19 @@ class Notifications extends Component {
         });
       }
     }
+  }
+
+  handleClickOutside(event) {
+    if (
+      this.containerRef &&
+      !this.containerRef.current.contains(event.target)
+    ) {
+      this.setState({ ...this.state, show: false });
+    }
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.handleClickOutside);
   }
 
   validateURL = myURL => {
@@ -117,13 +135,12 @@ class Notifications extends Component {
         ));
 
     return (
-      <Fragment>
-        <div className={classes["notification-icon"]}>
-          <img
-            src={icon ? icon : defaultIcon}
-            alt="notify"
-            onClick={() => this.setState({ show: !show })}
-          />
+      <div ref={this.containerRef}>
+        <div
+          className={classes["notification-icon"]}
+          onClick={() => this.setState({ show: !show })}
+        >
+          <img src={icon ? icon : defaultIcon} alt="notify" />
 
           {dataLength > 0 && (
             <div className={classes["notification-count"]}>{dataLength}</div>
@@ -173,7 +190,7 @@ class Notifications extends Component {
             </div>
           )}
         </div>
-      </Fragment>
+      </div>
     );
   }
 }
