@@ -5,7 +5,7 @@
 
 [![NPM](https://img.shields.io/npm/v/cb-react-notifications.svg)](https://www.npmjs.com/package/cb-react-notifications) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-<div style={{display:'flex',justifyContent:'space-around',textAlign:'center'}}>
+<div style={display:'flex','justify-content':'space-around','text-align':'center'}>
   <div>
     <div>Default</div>
     <img src="https://github.com/NaveenrajV/cb-react-notifications/blob/master/src/assets/default.gif" height="300px"/>
@@ -44,26 +44,12 @@ import Notifications from "cb-react-notifications";
 
 This Component can be used in three ways :
 
-- Default
-
 ```jsx
-<Notifications />
-```
-
-- Custom Component
-
-```jsx
-<Notifications renderItem={CustomComponent} />
-```
-
-- Fully Customizable
-
-```jsx
-<Notifications classNamePrefix="okrjoy" />
+<Notifications
+  renderItem={CustomComponent}
+  classNamePrefix="okrjoy"
+  displaySeeAll={false}
+/>
 ```
 
 To know more, visit [cb-react-notifications](/) docs
-
-## License
-
-MIT © [NaveenrajV](https://github.com/NaveenrajV)
