@@ -25,13 +25,6 @@ or
 yarn add --save cb-react-notifications
 ```
 
-### Adding to project
-
-Just import the default Notifications component from the package and use the component in project.
-
-```jsx
-```
-
 ## Basic Usage
 
 ```jsx
