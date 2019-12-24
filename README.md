@@ -10,6 +10,7 @@
     <div>Default</div>
     <img src="https://github.com/NaveenrajV/cb-react-notifications/blob/master/src/assets/default.gif" height="300px"/>
   </div>
+  <br/>
   <div  align="center">
     <div>Customized</div>
     <img src="https://github.com/NaveenrajV/cb-react-notifications/blob/master/src/assets/okrjoy.gif" height="300px"/>
