@@ -5,12 +5,12 @@
 
 [![NPM](https://img.shields.io/npm/v/cb-react-notifications.svg)](https://www.npmjs.com/package/cb-react-notifications) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-<div style={display:'flex','justify-content':'space-around','text-align':'center'}>
-  <div>
+<div>
+  <div align="center">
     <div>Default</div>
     <img src="https://github.com/NaveenrajV/cb-react-notifications/blob/master/src/assets/default.gif" height="300px"/>
   </div>
-  <div>
+  <div  align="center">
     <div>Customized</div>
     <img src="https://github.com/NaveenrajV/cb-react-notifications/blob/master/src/assets/okrjoy.gif" height="300px"/>
   </div>
@@ -40,9 +40,7 @@ Just import the default Notifications component from the package and use the com
 import Notifications from "cb-react-notifications";
 ```
 
-## Usage
-
-This Component can be used in three ways :
+## Basic Usage
 
 ```jsx
 <Notifications
