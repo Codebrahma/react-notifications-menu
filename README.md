@@ -30,17 +30,22 @@ yarn add --save cb-react-notifications
 Just import the default Notifications component from the package and use the component in project.
 
 ```jsx
-import Notifications from "cb-react-notifications";
 ```
 
 ## Basic Usage
 
 ```jsx
-<Notifications
-  renderItem={CustomComponent}
-  classNamePrefix="okrjoy"
-  displaySeeAll={false}
-/>
+import Notifications from "cb-react-notifications";
+
+const Example = () => {
+  return (
+    <Notifications
+      renderItem={CustomComponent}
+      classNamePrefix="okrjoy"
+      displaySeeAll={false}
+    />
+  );
+};
 ```
 
 To know more, visit [cb-react-notifications](/) docs
