@@ -11,6 +11,9 @@ dist
 
 # example
 example
+
+.vscode
+
 .editorconfig
 
 # misc

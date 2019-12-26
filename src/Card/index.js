@@ -1,20 +1,22 @@
-import React from "react";
-import "./Card.scss";
+// eslint-disable-next-line jsx-a11y/label-has-associated-control
+import React from 'react';
+import PropTypes from 'prop-types';
+import './card.scss';
 
-const Card = props => {
+const Card = ({
+  imagePosition,
+  classNamePrefix,
+  cardOptions,
+  renderImage,
+  markAsRead, data,
+}) => {
   const {
-    image,
-    message,
-    receivedTime,
-    imagePosition,
-    classNamePrefix,
-    detailPage,
-    cardOptions,
-    renderImage
-  } = props;
+    image, message, receivedTime, detailPage,
+  } = data;
+
 
   const classNameGenerator = () => {
-    const prefix = classNamePrefix ? `${classNamePrefix}-` : "";
+    const prefix = classNamePrefix ? `${classNamePrefix}-` : '';
     const classes = {
       card: `${prefix}card`,
       content: `${prefix}content`,
@@ -23,7 +25,7 @@ const Card = props => {
       option: `${prefix}option`,
       message: `${prefix}message`,
       text: `${prefix}text`,
-      time: `${prefix}time`
+      time: `${prefix}time`,
     };
     return classes;
   };
@@ -31,39 +33,67 @@ const Card = props => {
   const classes = classNameGenerator();
 
   return (
-    <a href={detailPage}>
-      <div className={classes.card}>
+    <div className={classes.card}>
+      <a href={detailPage}>
         <div
           className={classes.content}
           style={
-            imagePosition === "right" ? { flexDirection: "row-reverse" } : {}
+            imagePosition === 'right' ? { flexDirection: 'row-reverse' } : {}
           }
         >
-          {renderImage ? (
+          {renderImage && (
             <div className={classes.image}>
               <img src={image} alt="Person " />
             </div>
-          ) : null}
+          )}
           <div className={classes.message}>
             <div className={classes.text}>{message}</div>
             {receivedTime && <div className={classes.time}>{receivedTime}</div>}
           </div>
         </div>
+      </a>
+      <div className={classes.options}>
         {cardOptions && (
-          <div className={classes.options}>
-            <div className={classes.options}>&hellip;</div>
-            <div className={classes.option} title="Mark as Read">
-              &bull;
-            </div>
-          </div>
+        <div className={classes.option}>{cardOptions.option1}</div>
         )}
+        {
+          markAsRead && (<div
+            className={classes.option}
+            title="Mark as Read"
+            onClick={() => markAsRead(data)}
+          >
+            {cardOptions.option2}
+          </div>)
+        }
+        
       </div>
-    </a>
+    </div>
   );
 };
 
 Card.defaultProps = {
   renderImage: true,
-  imagePosition: "left"
+  imagePosition: 'left',
+  cardOptions: null,
+  markAsRead: null,
+  data: null,
+  classNamePrefix: null,
+};
+
+Card.propTypes = {
+  data: PropTypes.shape({
+    image: PropTypes.string,
+    message: PropTypes.any,
+    receivedTime: PropTypes.string,
+    detailPage: PropTypes.string,
+  }),
+  renderImage: PropTypes.bool,
+  markAsRead: PropTypes.func,
+  cardOptions: PropTypes.shape({
+    option1: PropTypes.func,
+    option2: PropTypes.func,
+  }),
+  imagePosition: PropTypes.string,
+  classNamePrefix: PropTypes.string,
 };
 export default Card;

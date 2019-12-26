@@ -1,18 +1,26 @@
 {
-  "parser": "babel-eslint",
-  "extends": ["airbnb"],
-  "env": {
-    "es6": true
-  },
+  "extends": "airbnb",
   "plugins": ["react"],
   "parserOptions": {
-    "sourceType": "module"
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   "rules": {
-    // don't force es6 functions to include space before paren
-    "space-before-function-paren": 0,
-    "func-names": ["error", "never"],
-    // allow specifying true explicitly for boolean props
-    "react/jsx-boolean-value": 0
+    "react/jsx-filename-extension": 0,
+    "import/no-unresolved": 0,
+    "import/extensions": 0,
+    "function-paren-newline": ["error", "consistent"],
+    "jsx-a11y/anchor-is-valid": [
+      "error",
+      {
+        "components": ["Link"],
+        "specialLink": ["to", "onClick"]
+      }
+    ],
+    "jsx-a11y/no-static-element-interactions": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-autofocus": "off",
+    "no-underscore-dangle": 0
   }
 }
