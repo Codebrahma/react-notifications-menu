@@ -41,4 +41,4 @@ const Example = () => {
 };
 ```
 
-To know more, visit [cb-react-notifications](/) docs
+To know more, visit [cb-react-notifications](https://cb-react-notifications.netlify.com/) docs
