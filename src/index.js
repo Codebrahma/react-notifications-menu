@@ -26,16 +26,16 @@ class Notifications extends Component {
     const scrollRef = this.scrollRef.current;
     const data = this.props.data;
 
-    document.addEventListener('mousedown', event =>
+    document.addEventListener('mousedown', (event) =>
       this.handleClickOutside(event)
     );
 
     // If data is a URL
     if (typeof data === 'string' && this.validateURL(data)) {
       fetch(this.state.data)
-        .then(response => response.json())
-        .then(data => this.setState({ data }))
-        .catch(err => console.log(err));
+        .then((response) => response.json())
+        .then((data) => this.setState({ data }))
+        .catch((err) => console.log(err));
     }
 
     // To make notification container to adjust based on window, if it is placed on right side
@@ -63,22 +63,24 @@ class Notifications extends Component {
     }
   }
 
-  componentWillUnmount() {
+  componentWillUnmount = () => {
     document.removeEventListener('mousedown', this.handleClickOutside);
-  }
+  };
 
-  handleClickOutside = (event) =>{
+  handleClickOutside = (event) => {
     if (
       this.containerRef &&
       !this.containerRef.current.contains(event.target)
     ) {
       this.setState({ show: false });
     }
-  }
+  };
 
-  validateURL = myURL => {
+  validateURL = (myURL) => {
     const pattern = new RegExp(
-      '^(https?:\\/\\/)?((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|((\\d{1,3}\\.){3}\\d{1,3}))(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*(\\?[;&amp;a-z\\d%_.~+=-]*)?(\\#[-a-z\\d_]*)?$',
+      '^(https?:\\/\\/)?((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+ \
+      [a-z]{2,}|((\\d{1,3}\\.){3}\\d{1,3}))(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)* \
+      (\\?[;&amp;a-z\\d%_.~+=-]*)?(\\#[-a-z\\d_]*)?$',
       'i'
     );
     return pattern.test(myURL);
@@ -86,8 +88,8 @@ class Notifications extends Component {
 
   fetchData = () => {
     this.setState({ loading: true }, () => {
-      this.props.fetchData();
-      this.setState({ loading: false });
+      const fetchedData = this.props.fetchData();
+      this.setState({ loading: false,data:[...data,...fetchedData] });
     });
   };
 
@@ -148,8 +150,7 @@ class Notifications extends Component {
           ref={this.notificationRef}
           style={{
             ...styles,
-            height: height,
-            width: width,
+            width,
             visibility: show ? 'visible' : 'hidden',
             opacity: show ? 1 : 0
           }}
@@ -161,11 +162,11 @@ class Notifications extends Component {
             <div className={classes['header-title']}>{title}</div>
 
             <div className={classes['header-option']} onClick={option.onClick}>
-              {option.name}
+              {option.text}
             </div>
           </div>
 
-          <div className={classes.items} ref={this.scrollRef}>
+          <div className={classes.items} style={{height}} ref={this.scrollRef}>
             {dataLength > 0 ? (
               <Fragment>
                 {cardList}
@@ -200,27 +201,26 @@ Notifications.defaultProps = {
   width: null,
   header: {
     title: 'Notifications',
-    option: { name: 'Mark all as read', onClick: () => {} }
+    option: { text: 'Mark all as read', onClick: () => {} }
   },
   headerBackgroundColor: null
 };
 
 Notifications.propTypes = {
   data: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-  notificationCard: PropTypes.instanceOf(React.Component),
+  notificationCard: PropTypes.oneOfType([PropTypes.func,PropTypes.instanceOf(React.Component)]),
   fetchData: PropTypes.func,
   header: PropTypes.shape({
     title: PropTypes.string,
-    option: PropTypes.shape({ name: PropTypes.string, onClick: PropTypes.func })
+    option: PropTypes.shape({ text: PropTypes.string, onClick: PropTypes.func })
   }),
   viewAllBtn: PropTypes.shape({
     text: PropTypes.string,
     linkTo: PropTypes.string
   }),
-  height: PropTypes.string,
-  width: PropTypes.string,
-  headerBackgroundColor: PropTypes.string,
- 
+  height:PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  headerBackgroundColor: PropTypes.string
 };
 
 export default Notifications;

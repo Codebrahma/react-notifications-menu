@@ -6,7 +6,7 @@ import './card.scss';
 const Card = ({
   imagePosition,
   classNamePrefix,
-  cardOptions,
+  cardOption,
   renderImage,
   markAsRead, data,
 }) => {
@@ -53,8 +53,8 @@ const Card = ({
         </div>
       </a>
       <div className={classes.options}>
-        {cardOptions && (
-        <div className={classes.option}>{cardOptions.option1}</div>
+        {cardOption && (
+        <div className={classes.option} onClick={() => cardOption(data)}>&hellip;</div>
         )}
         {
           markAsRead && (<div
@@ -62,7 +62,7 @@ const Card = ({
             title="Mark as Read"
             onClick={() => markAsRead(data)}
           >
-            {cardOptions.option2}
+           &bull;
           </div>)
         }
         
@@ -74,10 +74,10 @@ const Card = ({
 Card.defaultProps = {
   renderImage: true,
   imagePosition: 'left',
-  cardOptions: null,
   markAsRead: null,
   data: null,
   classNamePrefix: null,
+  cardOption:null
 };
 
 Card.propTypes = {
@@ -89,10 +89,7 @@ Card.propTypes = {
   }),
   renderImage: PropTypes.bool,
   markAsRead: PropTypes.func,
-  cardOptions: PropTypes.shape({
-    option1: PropTypes.func,
-    option2: PropTypes.func,
-  }),
+  cardOption:PropTypes.func,
   imagePosition: PropTypes.string,
   classNamePrefix: PropTypes.string,
 };
