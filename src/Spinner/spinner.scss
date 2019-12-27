@@ -1,20 +1,22 @@
 .spinner {
-  height: 2em;
-  width: 2em;
+  height: 32px;
+  width: 32px;
 }
+
 .loaders {
-  font-size: 0.625em;
-  text-indent: -9999em;
-  width: 11em;
-  height: 11em;
+  font-size: 10px;
+  text-indent: -159984px;
+  width: 176px;
+  height: 176px;
   border-radius: 50%;
   background: #000000;
   background: linear-gradient(to right, #000000 10%, rgba(0, 0, 0, 0) 42%);
   position: relative;
   animation: load3 1.4s infinite linear;
   transform: translateZ(0);
+
   &:before {
-    content: "";
+    content: '';
     width: 50%;
     height: 50%;
     background: #000000;
@@ -24,13 +26,14 @@
     left: 0;
   }
 }
+
 .loader {
   &:after {
     background: #ffffff;
     width: 75%;
     height: 75%;
     border-radius: 50%;
-    content: "";
+    content: '';
     margin: auto;
     position: absolute;
     top: 0;
@@ -44,6 +47,7 @@
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }

@@ -7,6 +7,7 @@ $card-hover: #ebedf0;
   text-decoration: none;
   color: $options-color;
 }
+
 :global(.card) {
   display: flex;
   border-bottom: 1px solid rgba(153, 153, 153, 0.3);
@@ -24,9 +25,11 @@ $card-hover: #ebedf0;
     display: flex;
     color: black;
     align-items: center;
+
     :global(.message) {
       margin: 0 8px;
     }
+
     :global(.time) {
       color: $options-color;
     }
@@ -34,7 +37,7 @@ $card-hover: #ebedf0;
 
   :global(.image) {
     img {
-      height: 2.5rem;
+      height: 40px;
       border-radius: 50%;
     }
 

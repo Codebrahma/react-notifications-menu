@@ -8,12 +8,12 @@ const Card = ({
   classNamePrefix,
   cardOption,
   renderImage,
-  markAsRead, data,
+  markAsRead,
+  data,
 }) => {
   const {
     image, message, receivedTime, detailPage,
   } = data;
-
 
   const classNameGenerator = () => {
     const prefix = classNamePrefix ? `${classNamePrefix}-` : '';
@@ -54,18 +54,19 @@ const Card = ({
       </a>
       <div className={classes.options}>
         {cardOption && (
-        <div className={classes.option} onClick={() => cardOption(data)}>&hellip;</div>
+          <div className={classes.option} onClick={() => cardOption(data)}>
+            &hellip;
+          </div>
         )}
-        {
-          markAsRead && (<div
+        {markAsRead && (
+          <div
             className={classes.option}
             title="Mark as Read"
             onClick={() => markAsRead(data)}
           >
-           &bull;
-          </div>)
-        }
-        
+            &bull;
+          </div>
+        )}
       </div>
     </div>
   );
@@ -77,7 +78,7 @@ Card.defaultProps = {
   markAsRead: null,
   data: null,
   classNamePrefix: null,
-  cardOption:null
+  cardOption: null,
 };
 
 Card.propTypes = {
@@ -89,8 +90,8 @@ Card.propTypes = {
   }),
   renderImage: PropTypes.bool,
   markAsRead: PropTypes.func,
-  cardOption:PropTypes.func,
-  imagePosition: PropTypes.string,
+  cardOption: PropTypes.func,
+  imagePosition: PropTypes.oneOf(['left', 'right']),
   classNamePrefix: PropTypes.string,
 };
 export default Card;

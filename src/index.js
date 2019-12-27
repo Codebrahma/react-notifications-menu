@@ -63,9 +63,9 @@ class Notifications extends Component {
     }
   }
 
-  componentWillUnmount = () => {
+  componentWillUnmount() {
     document.removeEventListener('mousedown', this.handleClickOutside);
-  };
+  }
 
   handleClickOutside = (event) => {
     if (
@@ -89,7 +89,7 @@ class Notifications extends Component {
   fetchData = () => {
     this.setState({ loading: true }, () => {
       const fetchedData = this.props.fetchData();
-      this.setState({ loading: false,data:[...data,...fetchedData] });
+      this.setState({ loading: false, data: [...data, ...fetchedData] });
     });
   };
 
@@ -103,12 +103,12 @@ class Notifications extends Component {
       count: `${prefix}count`,
       container: `${prefix}container`,
       header: `${prefix}header`,
-      'header-title': `${prefix}header-title`,
-      'header-option': `${prefix}header-option`,
+      headerTitle: `${prefix}header-title`,
+      headerOption: `${prefix}header-option`,
       items: `${prefix}items`,
-      'empty-notifications': `${prefix}empty-notifications`,
+      emptyNotifications: `${prefix}empty-notifications`,
       footer: `${prefix}footer`,
-      see_all: `${prefix}see_all`
+      seeAll: `${prefix}see-all`
     };
     return classes;
   };
@@ -127,11 +127,11 @@ class Notifications extends Component {
     const dataLength = data.length;
 
     const cardList = CustomComponent
-      ? data.map((elm, index) => (
-          <CustomComponent key={index} {...this.props} data={elm} />
+      ? data.map((item, index) => (
+          <CustomComponent key={index} {...this.props} data={item} />
         ))
-      : data.map((elm, index) => (
-          <Card key={index} {...this.props} data={elm} />
+      : data.map((item, index) => (
+          <Card key={index} {...this.props} data={item} />
         ));
 
     return (
@@ -140,9 +140,15 @@ class Notifications extends Component {
           className={classes.icon}
           onClick={() => this.setState({ show: !show })}
         >
-          <img src={icon ? icon : defaultIcon} alt='notify' />
-
-          {dataLength > 0 && <div className={classes.count}>{dataLength}</div>}
+          <img src={icon || defaultIcon} alt='notify' />
+          {dataLength > 0 && (
+            <div
+              className={classes.count}
+              style={dataLength >= 100 ? { fontSize: '8px' } : null}
+            >
+              {dataLength < 100 ? dataLength : '99+'}
+            </div>
+          )}
         </div>
 
         <div
@@ -159,21 +165,27 @@ class Notifications extends Component {
             className={classes.header}
             style={{ backgroundColor: headerBackgroundColor }}
           >
-            <div className={classes['header-title']}>{title}</div>
+            <div className={classes.headerTitle}>{title}</div>
 
-            <div className={classes['header-option']} onClick={option.onClick}>
-              {option.text}
-            </div>
+            {dataLength > 0 && (
+              <div className={classes.headerOption} onClick={option.onClick}>
+                {option.text}
+              </div>
+            )}
           </div>
 
-          <div className={classes.items} style={{height}} ref={this.scrollRef}>
+          <div
+            className={classes.items}
+            style={{ height }}
+            ref={this.scrollRef}
+          >
             {dataLength > 0 ? (
               <Fragment>
                 {cardList}
                 <div className='loader'>{loading && <Spinner />}</div>
               </Fragment>
             ) : (
-              <div className={classes['empty-notifications']}>
+              <div className={classes.emptyNotifications}>
                 <div>No Notifications</div>
               </div>
             )}
@@ -182,7 +194,7 @@ class Notifications extends Component {
           {viewAllBtn && (
             <div className={classes.footer}>
               <a href={viewAllBtn.linkTo}>
-                <span className={classes.see_all}>{viewAllBtn.text}</span>
+                <span className={classes.seeAll}>{viewAllBtn.text}</span>
               </a>
             </div>
           )}
@@ -208,7 +220,10 @@ Notifications.defaultProps = {
 
 Notifications.propTypes = {
   data: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-  notificationCard: PropTypes.oneOfType([PropTypes.func,PropTypes.instanceOf(React.Component)]),
+  notificationCard: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.instanceOf(React.Component)
+  ]),
   fetchData: PropTypes.func,
   header: PropTypes.shape({
     title: PropTypes.string,
@@ -218,7 +233,7 @@ Notifications.propTypes = {
     text: PropTypes.string,
     linkTo: PropTypes.string
   }),
-  height:PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   headerBackgroundColor: PropTypes.string
 };
