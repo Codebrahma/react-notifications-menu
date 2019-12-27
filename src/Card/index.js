@@ -1,4 +1,3 @@
-// eslint-disable-next-line jsx-a11y/label-has-associated-control
 import React from 'react';
 import PropTypes from 'prop-types';
 import './card.scss';
@@ -9,10 +8,10 @@ const Card = ({
   cardOption,
   renderImage,
   markAsRead,
-  data,
+  data
 }) => {
   const {
-    image, message, receivedTime, detailPage,
+    image, message, receivedTime, detailPage
   } = data;
 
   const classNameGenerator = () => {
@@ -25,7 +24,7 @@ const Card = ({
       option: `${prefix}option`,
       message: `${prefix}message`,
       text: `${prefix}text`,
-      time: `${prefix}time`,
+      time: `${prefix}time`
     };
     return classes;
   };
@@ -78,7 +77,7 @@ Card.defaultProps = {
   markAsRead: null,
   data: null,
   classNamePrefix: null,
-  cardOption: null,
+  cardOption: null
 };
 
 Card.propTypes = {
@@ -86,12 +85,12 @@ Card.propTypes = {
     image: PropTypes.string,
     message: PropTypes.any,
     receivedTime: PropTypes.string,
-    detailPage: PropTypes.string,
+    detailPage: PropTypes.string
   }),
   renderImage: PropTypes.bool,
   markAsRead: PropTypes.func,
   cardOption: PropTypes.func,
   imagePosition: PropTypes.oneOf(['left', 'right']),
-  classNamePrefix: PropTypes.string,
+  classNamePrefix: PropTypes.string
 };
 export default Card;

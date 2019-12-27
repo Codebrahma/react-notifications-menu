@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from 'react';
-import Card from './Card';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Card from './Card';
 import Spinner from './Spinner';
 import defaultIcon from './assets/default_bell.svg';
 import './styles.scss';
@@ -8,11 +8,13 @@ import './styles.scss';
 class Notifications extends Component {
   constructor(props) {
     super(props);
+
+    const { data, style } = this.props;
     this.state = {
       show: false,
       loading: false,
-      data: this.props.data,
-      styles: this.props.style || {},
+      data,
+      styles: style || {},
       classes: this.classNameGenerator()
     };
 
@@ -24,37 +26,40 @@ class Notifications extends Component {
   componentDidMount() {
     const notificationRef = this.notificationRef.current;
     const scrollRef = this.scrollRef.current;
-    const data = this.props.data;
+    const { data, styles } = this.state;
+    const { fetchData } = this.props;
 
-    document.addEventListener('mousedown', (event) =>
-      this.handleClickOutside(event)
-    );
+    document.addEventListener('mousedown', (event) => {
+      this.handleClickOutside(event);
+    });
 
     // If data is a URL
     if (typeof data === 'string' && this.validateURL(data)) {
-      fetch(this.state.data)
+      fetch(data)
         .then((response) => response.json())
-        .then((data) => this.setState({ data }))
-        .catch((err) => console.log(err));
+        .then((responseData) => this.setState({ data: responseData }))
+        .catch((err) => {
+          throw new Error(err);
+        });
     }
 
     // To make notification container to adjust based on window, if it is placed on right side
     if (notificationRef.offsetLeft > notificationRef.offsetWidth) {
       this.setState({
         styles: {
-          ...this.state.styles,
+          ...styles,
           transform: `translateX(-${notificationRef.offsetWidth - 20}px)`
         }
       });
     }
 
-    if (this.props.fetchData) {
+    if (fetchData) {
       // Infinite scroll to notification container
-      if (Object.keys(this.state.data).length > 0) {
+      if (data.length > 0) {
         scrollRef.addEventListener('scroll', () => {
           if (
-            scrollRef.scrollTop + scrollRef.clientHeight >=
-            scrollRef.scrollHeight
+            scrollRef.scrollTop + scrollRef.clientHeight
+            >= scrollRef.scrollHeight
           ) {
             this.fetchData();
           }
@@ -69,8 +74,8 @@ class Notifications extends Component {
 
   handleClickOutside = (event) => {
     if (
-      this.containerRef &&
-      !this.containerRef.current.contains(event.target)
+      this.containerRef
+      && !this.containerRef.current.contains(event.target)
     ) {
       this.setState({ show: false });
     }
@@ -78,29 +83,28 @@ class Notifications extends Component {
 
   validateURL = (myURL) => {
     const pattern = new RegExp(
-      '^(https?:\\/\\/)?((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+ \
-      [a-z]{2,}|((\\d{1,3}\\.){3}\\d{1,3}))(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)* \
-      (\\?[;&amp;a-z\\d%_.~+=-]*)?(\\#[-a-z\\d_]*)?$',
+      '^(https?:\\/\\/)?((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+ [a-z]{2,}|((\\d{1,3}\\.){3}\\d{1,3}))(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)* (\\?[;&amp;a-z\\d%_.~+=-]*)?(\\#[-a-z\\d_]*)?$',
       'i'
     );
     return pattern.test(myURL);
   };
 
   fetchData = () => {
+    const { fetchData } = this.props;
+    const { data } = this.state;
     this.setState({ loading: true }, () => {
-      const fetchedData = this.props.fetchData();
+      const fetchedData = fetchData();
       this.setState({ loading: false, data: [...data, ...fetchedData] });
     });
   };
 
   classNameGenerator = () => {
-    const prefix = this.props.classNamePrefix
-      ? `${this.props.classNamePrefix}-`
-      : '';
+    const { classNamePrefix } = this.props;
+    const prefix = classNamePrefix ? `${classNamePrefix}-` : '';
     const classes = {
       notifications: `${prefix}notifications`,
       icon: `${prefix}icon`,
-      image:`${prefix}image`,
+      image: `${prefix}image`,
       count: `${prefix}count`,
       container: `${prefix}container`,
       header: `${prefix}header`,
@@ -115,25 +119,29 @@ class Notifications extends Component {
   };
 
   render() {
-    const { show, styles, loading, data, classes } = this.state;
+    const {
+      show, styles, loading, data, classes
+    } = this.state;
     const {
       viewAllBtn,
       icon,
       height,
       width,
-      headerBackgroundColor
+      headerBackgroundColor,
+      header,
+      notificationCard
     } = this.props;
-    const { title, option } = this.props.header;
-    const CustomComponent = this.props.notificationCard;
+    const { title, option } = header;
+    const CustomComponent = notificationCard;
     const dataLength = data.length;
 
     const cardList = CustomComponent
       ? data.map((item, index) => (
-          <CustomComponent key={index} {...this.props} data={item} />
-        ))
+        <CustomComponent key={index} {...this.props} data={item} />
+      ))
       : data.map((item, index) => (
-          <Card key={index} {...this.props} data={item} />
-        ));
+        <Card key={index} {...this.props} data={item} />
+      ));
 
     return (
       <div className={classes.notifications} ref={this.containerRef}>
@@ -141,12 +149,13 @@ class Notifications extends Component {
           className={classes.icon}
           onClick={() => this.setState({ show: !show })}
         >
-          <img src={icon || defaultIcon} alt='notify' className={classes.image}/>
+          <img
+            src={icon || defaultIcon}
+            alt="notify"
+            className={classes.image}
+          />
           {dataLength > 0 && (
-            <div
-              className={classes.count}
-              style={dataLength >= 100 ? { fontSize: '8px' } : null}
-            >
+            <div className={classes.count} style={dataLength >= 100 ? { fontSize: '8px' } : null}>
               {dataLength < 100 ? dataLength : '99+'}
             </div>
           )}
@@ -181,10 +190,10 @@ class Notifications extends Component {
             ref={this.scrollRef}
           >
             {dataLength > 0 ? (
-              <Fragment>
+              <>
                 {cardList}
-                <div className='loader'>{loading && <Spinner />}</div>
-              </Fragment>
+                <div className="loader">{loading && <Spinner />}</div>
+              </>
             ) : (
               <div className={classes.emptyNotifications}>
                 <div>No Notifications</div>
@@ -216,7 +225,10 @@ Notifications.defaultProps = {
     title: 'Notifications',
     option: { text: 'Mark all as read', onClick: () => {} }
   },
-  headerBackgroundColor: null
+  headerBackgroundColor: null,
+  classNamePrefix: '',
+  icon: defaultIcon,
+  style: {}
 };
 
 Notifications.propTypes = {
@@ -236,7 +248,10 @@ Notifications.propTypes = {
   }),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  headerBackgroundColor: PropTypes.string
+  headerBackgroundColor: PropTypes.string,
+  classNamePrefix: PropTypes.string,
+  icon: PropTypes.string,
+  style: PropTypes.shape({})
 };
 
 export default Notifications;
