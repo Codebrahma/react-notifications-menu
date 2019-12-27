@@ -5,10 +5,10 @@ $title: #1d2129;
   :global(.icon) {
     position: relative;
     height: 32px;
-    width: 28.8px;
+    width: 29px;
     box-sizing: border-box;
 
-    :global(img) {
+    :global(.image) {
       height: 24px;
       width: 24px;
       cursor: pointer;

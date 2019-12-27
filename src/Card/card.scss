@@ -1,24 +1,24 @@
-$card-color: #edf2fa;
-$options-color: #999;
+$cardColor: #edf2fa;
+$optionsColor: #999;
 $time: #9ea3ab;
-$card-hover: #ebedf0;
+$cardHover: #ebedf0;
 
-:global(a) {
+:global(.card-link) {
   text-decoration: none;
-  color: $options-color;
+  color: $optionsColor;
 }
 
 :global(.card) {
   display: flex;
   border-bottom: 1px solid rgba(153, 153, 153, 0.3);
   justify-content: space-between;
-  background-color: $card-color;
+  background-color: $cardColor;
   font-size: 12px;
   cursor: pointer;
   padding: 6px;
 
   &:hover {
-    background-color: $card-hover;
+    background-color: $cardHover;
   }
 
   :global(.content) {
@@ -31,7 +31,7 @@ $card-hover: #ebedf0;
     }
 
     :global(.time) {
-      color: $options-color;
+      color: $optionsColor;
     }
   }
 
@@ -52,7 +52,7 @@ $card-hover: #ebedf0;
     :global(.option) {
       cursor: pointer;
       opacity: 0.5;
-      color: $options-color;
+      color: $optionsColor;
 
       &:hover {
         opacity: 1;

@@ -100,6 +100,7 @@ class Notifications extends Component {
     const classes = {
       notifications: `${prefix}notifications`,
       icon: `${prefix}icon`,
+      image:`${prefix}image`,
       count: `${prefix}count`,
       container: `${prefix}container`,
       header: `${prefix}header`,
@@ -140,7 +141,7 @@ class Notifications extends Component {
           className={classes.icon}
           onClick={() => this.setState({ show: !show })}
         >
-          <img src={icon || defaultIcon} alt='notify' />
+          <img src={icon || defaultIcon} alt='notify' className={classes.image}/>
           {dataLength > 0 && (
             <div
               className={classes.count}

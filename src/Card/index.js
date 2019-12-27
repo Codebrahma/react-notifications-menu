@@ -34,7 +34,7 @@ const Card = ({
 
   return (
     <div className={classes.card}>
-      <a href={detailPage}>
+      <a href={detailPage} className="card-link">
         <div
           className={classes.content}
           style={
