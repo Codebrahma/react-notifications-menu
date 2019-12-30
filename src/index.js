@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import Card from './Card';
@@ -193,10 +193,10 @@ class Notifications extends Component {
             ref={this.scrollRef}
           >
             {dataLength > 0 ? (
-              <>
+              <Fragment>
                 {cardList}
                 <div className="loader">{loading && <Spinner />}</div>
-              </>
+              </Fragment>
             ) : (
               <div className={classes.emptyNotifications}>
                 <div>No Notifications</div>
