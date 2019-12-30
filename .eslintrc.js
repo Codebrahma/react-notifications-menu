@@ -35,7 +35,6 @@ module.exports = {
     "jsx-a11y/no-autofocus": "off",
     "no-underscore-dangle": 0,
     "comma-dangle": ["error", "never"],
-    "react/jsx-props-no-spreading": "off",
-    "react/no-array-index-key": "off"
+    "react/jsx-props-no-spreading": "off"
   }
 };

@@ -138,12 +138,10 @@ class Notifications extends Component {
     const dataLength = data.length;
 
     const cardList = CustomComponent
-      ? data.map((item, index) => (
-        <CustomComponent key={index} {...this.props} data={item} />
+      ? data.map((item) => (
+        <CustomComponent key={item} {...this.props} data={item} />
       ))
-      : data.map((item, index) => (
-        <Card key={index} {...this.props} data={item} />
-      ));
+      : data.map((item) => <Card key={item} {...this.props} data={item} />);
 
     return (
       <div className={classes.notifications} ref={this.containerRef}>

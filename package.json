@@ -20,7 +20,7 @@
     "prepare": "yarn run build",
     "predeploy": "cd example && yarn install && yarn run build",
     "deploy": "gh-pages -d example/build",
-    "lint": "eslint --ext .js src/  --fix"
+    "lint": "./node_modules/eslint/bin/eslint.js  --ext .js src/  --fix"
   },
   "peerDependencies": {
     "prop-types": "^15.5.4",
