@@ -11,6 +11,7 @@ class Notifications extends Component {
     super(props);
 
     const { data, style } = this.props;
+
     this.state = {
       show: false,
       loading: false,
@@ -35,10 +36,10 @@ class Notifications extends Component {
     });
 
     // If data is a URL
-    if (typeof data === 'string' && this.validateURL(data)) {
+    if (typeof data === 'string') {
       axios
         .get(data)
-        .then((response) => this.setState({ data: response }))
+        .then((response) => this.setState({ data: response.data }))
         .catch((err) => {
           throw new Error(err);
         });
@@ -83,10 +84,7 @@ class Notifications extends Component {
   };
 
   validateURL = (myURL) => {
-    const pattern = new RegExp(
-      '^(https?:\\/\\/)?((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+ [a-z]{2,}|((\\d{1,3}\\.){3}\\d{1,3}))(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)* (\\?[;&amp;a-z\\d%_.~+=-]*)?(\\#[-a-z\\d_]*)?$',
-      'i'
-    );
+    const pattern = new RegExp('^(https?:\\/\\/)?((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|((\\d{1,3}\\.){3}\\d{1,3}))(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*(\\?[;&a-z\\d%_.~+=-]*)?(\\#[-a-z\\d_]*)?$', 'i');
     return pattern.test(myURL);
   };
 
@@ -119,6 +117,7 @@ class Notifications extends Component {
     return classes;
   };
 
+
   render() {
     const {
       show, styles, loading, data, classes
@@ -137,11 +136,14 @@ class Notifications extends Component {
     const CustomComponent = notificationCard;
     const dataLength = data.length;
 
-    const cardList = CustomComponent
+    const cardList = Array.isArray(data) && (CustomComponent
       ? data.map((item) => (
-        <CustomComponent key={item} {...this.props} data={item} />
+        <CustomComponent key={item.message} {...this.props} data={item} />
       ))
-      : data.map((item) => <Card key={item} {...this.props} data={item} />);
+      : data.map((item) => (
+        <Card key={item.message} {...this.props} data={item} />
+      )));
+
 
     return (
       <div className={classes.notifications} ref={this.containerRef}>
