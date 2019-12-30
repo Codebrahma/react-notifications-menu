@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import Card from './Card';
-import Spinner from './Spinner';
+import Card from './card';
+import Spinner from './spinner';
 import defaultIcon from './assets/default_bell.svg';
 import './styles.scss';
 
