@@ -26,7 +26,6 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: yarn add eslint
       - run: yarn run lint
 
       - save_cache:

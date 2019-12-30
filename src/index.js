@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import Card from './Card';
 import Spinner from './Spinner';
 import defaultIcon from './assets/default_bell.svg';
@@ -35,9 +36,9 @@ class Notifications extends Component {
 
     // If data is a URL
     if (typeof data === 'string' && this.validateURL(data)) {
-      fetch(data)
-        .then((response) => response.json())
-        .then((responseData) => this.setState({ data: responseData }))
+      axios
+        .get(data)
+        .then((response) => this.setState({ data: response }))
         .catch((err) => {
           throw new Error(err);
         });
@@ -131,6 +132,7 @@ class Notifications extends Component {
       header,
       notificationCard
     } = this.props;
+
     const { title, option } = header;
     const CustomComponent = notificationCard;
     const dataLength = data.length;
@@ -155,7 +157,10 @@ class Notifications extends Component {
             className={classes.image}
           />
           {dataLength > 0 && (
-            <div className={classes.count} style={dataLength >= 100 ? { fontSize: '8px' } : null}>
+            <div
+              className={classes.count}
+              style={dataLength >= 100 ? { fontSize: '8px' } : null}
+            >
               {dataLength < 100 ? dataLength : '99+'}
             </div>
           )}
