@@ -36,7 +36,7 @@ class Notifications extends Component {
     });
 
     // If data is a URL
-    if (typeof data === 'string') {
+    if (typeof data === 'string' && this.validateURL(data)) {
       axios
         .get(data)
         .then((response) => this.setState({ data: response.data }))
@@ -84,7 +84,10 @@ class Notifications extends Component {
   };
 
   validateURL = (myURL) => {
-    const pattern = new RegExp('^(https?:\\/\\/)?((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|((\\d{1,3}\\.){3}\\d{1,3}))(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*(\\?[;&a-z\\d%_.~+=-]*)?(\\#[-a-z\\d_]*)?$', 'i');
+    const pattern = new RegExp(
+      '^(https?:\\/\\/)?((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|((\\d{1,3}\\.){3}\\d{1,3}))(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*(\\?[;&a-z\\d%_.~+=-]*)?(\\#[-a-z\\d_]*)?$',
+      'i'
+    );
     return pattern.test(myURL);
   };
 
@@ -117,7 +120,6 @@ class Notifications extends Component {
     return classes;
   };
 
-
   render() {
     const {
       show, styles, loading, data, classes
@@ -136,14 +138,14 @@ class Notifications extends Component {
     const CustomComponent = notificationCard;
     const dataLength = data.length;
 
-    const cardList = Array.isArray(data) && (CustomComponent
-      ? data.map((item) => (
-        <CustomComponent key={item.message} {...this.props} data={item} />
-      ))
-      : data.map((item) => (
-        <Card key={item.message} {...this.props} data={item} />
-      )));
-
+    const cardList = Array.isArray(data)
+      && (CustomComponent
+        ? data.map((item) => (
+          <CustomComponent key={item.message} {...this.props} data={item} />
+        ))
+        : data.map((item) => (
+          <Card key={item.message} {...this.props} data={item} />
+        )));
 
     return (
       <div className={classes.notifications} ref={this.containerRef}>
