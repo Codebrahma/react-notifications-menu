@@ -35,7 +35,7 @@ const Example = () => {
     <Notifications
       renderItem={CustomComponent}
       classNamePrefix='okrjoy'
-      displaySeeAll={false}
+      headerBackgroundColor='red'
     />
   );
 };
