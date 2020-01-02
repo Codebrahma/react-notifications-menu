@@ -34,11 +34,11 @@ const Example = () => {
   return (
     <Notifications
       renderItem={CustomComponent}
-      classNamePrefix="okrjoy"
+      classNamePrefix='okrjoy'
       displaySeeAll={false}
     />
   );
 };
 ```
 
-To know more, visit [cb-react-notifications](https://cb-react-notifications.netlify.com/) docs
+To know more, visit [cb-react-notifications](https://react-notifications-menu.netlify.com/) docs
