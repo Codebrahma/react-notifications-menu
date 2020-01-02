@@ -16,19 +16,19 @@
 Install using npm or yarn
 
 ```bash
-npm install --save cb-react-notifications
+npm install --save react-notifications-menu
 ```
 
 or
 
 ```bash
-yarn add --save cb-react-notifications
+yarn add --save react-notifications-menu
 ```
 
 ## Basic Usage
 
 ```jsx
-import Notifications from "cb-react-notifications";
+import Notifications from "react-notifications-menu";
 
 const Example = () => {
   return (
@@ -41,4 +41,4 @@ const Example = () => {
 };
 ```
 
-To know more, visit [cb-react-notifications](https://react-notifications-menu.netlify.com/) docs
+To know more, visit [react-notifications-menu](https://react-notifications-menu.netlify.com/) docs
