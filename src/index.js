@@ -71,7 +71,9 @@ class Notifications extends Component {
   }
 
   componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClickOutside);
+    document.removeEventListener('mousedown', (event) => {
+      this.handleClickOutside(event);
+    });
   }
 
   handleClickOutside = (event) => {
