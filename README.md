@@ -1,12 +1,12 @@
-# cb-react-notifications
+# react-notifications-menu
 
 > A React Component used to render notifications with default styles and also allows to customize entire notification component
 > by providing necessary props and styles.
 
-[![NPM](https://img.shields.io/npm/v/cb-react-notifications.svg)](https://www.npmjs.com/package/cb-react-notifications) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/react-notifications-menu.svg)](https://www.npmjs.com/package/react-notifications-menu) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 <p align="center">
-<img  src="https://github.com/NaveenrajV/cb-react-notifications/blob/master/src/assets/demo.gif" height="320px"/>
+<img  src="https://github.com/Codebrahma/react-notifications-menu/blob/master/src/assets/demo.gif" height="320px"/>
 </p>
 
 ## Getting Started
