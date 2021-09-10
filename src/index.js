@@ -79,7 +79,7 @@ class Notifications extends Component {
   handleClickOutside = (event) => {
     if (
       this.containerRef
-      && !this.containerRef.current.contains(event.target)
+      && !this.containerRef.current?.contains(event.target)
     ) {
       this.setState({ show: false });
     }
