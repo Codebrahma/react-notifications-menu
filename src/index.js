@@ -1,10 +1,10 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import axios from 'axios';
-import Card from './card';
-import Spinner from './spinner';
-import defaultIcon from './assets/default_bell.svg';
-import './styles.scss';
+import React, { Component, Fragment } from "react";
+import PropTypes from "prop-types";
+import axios from "axios";
+import Card from "./card";
+import Spinner from "./spinner";
+import defaultIcon from "./assets/default_bell.svg";
+import "./styles.scss";
 
 class Notifications extends Component {
   constructor(props) {
@@ -17,7 +17,7 @@ class Notifications extends Component {
       loading: false,
       data,
       styles: style || {},
-      classes: this.classNameGenerator()
+      classes: this.classNameGenerator(),
     };
 
     this.scrollRef = React.createRef();
@@ -31,12 +31,12 @@ class Notifications extends Component {
     const { data, styles } = this.state;
     const { fetchData } = this.props;
 
-    document.addEventListener('mousedown', (event) => {
+    document.addEventListener("mousedown", (event) => {
       this.handleClickOutside(event);
     });
 
     // If data is a URL
-    if (typeof data === 'string' && this.validateURL(data)) {
+    if (typeof data === "string" && this.validateURL(data)) {
       axios
         .get(data)
         .then((response) => this.setState({ data: response.data }))
@@ -50,18 +50,18 @@ class Notifications extends Component {
       this.setState({
         styles: {
           ...styles,
-          transform: `translateX(-${notificationRef.offsetWidth - 20}px)`
-        }
+          transform: `translateX(-${notificationRef.offsetWidth - 20}px)`,
+        },
       });
     }
 
     if (fetchData) {
       // Infinite scroll to notification container
       if (data.length > 0) {
-        scrollRef.addEventListener('scroll', () => {
+        scrollRef.addEventListener("scroll", () => {
           if (
-            scrollRef.scrollTop + scrollRef.clientHeight
-            >= scrollRef.scrollHeight
+            scrollRef.scrollTop + scrollRef.clientHeight >=
+            scrollRef.scrollHeight
           ) {
             this.fetchData();
           }
@@ -70,16 +70,23 @@ class Notifications extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    // You don't have to do this check first, but it can help prevent an unneeded render
+    if (nextProps.data !== this.state.data) {
+      this.setState({ data: nextProps.data });
+    }
+  }
+
   componentWillUnmount() {
-    document.removeEventListener('mousedown', (event) => {
+    document.removeEventListener("mousedown", (event) => {
       this.handleClickOutside(event);
     });
   }
 
   handleClickOutside = (event) => {
     if (
-      this.containerRef
-      && !this.containerRef.current.contains(event.target)
+      this.containerRef &&
+      !this.containerRef.current.contains(event.target)
     ) {
       this.setState({ show: false });
     }
@@ -87,8 +94,8 @@ class Notifications extends Component {
 
   validateURL = (myURL) => {
     const pattern = new RegExp(
-      '^(https?:\\/\\/)?((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|((\\d{1,3}\\.){3}\\d{1,3}))(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*(\\?[;&a-z\\d%_.~+=-]*)?(\\#[-a-z\\d_]*)?$',
-      'i'
+      "^(https?:\\/\\/)?((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|((\\d{1,3}\\.){3}\\d{1,3}))(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*(\\?[;&a-z\\d%_.~+=-]*)?(\\#[-a-z\\d_]*)?$",
+      "i"
     );
     return pattern.test(myURL);
   };
@@ -104,7 +111,7 @@ class Notifications extends Component {
 
   classNameGenerator = () => {
     const { classNamePrefix } = this.props;
-    const prefix = classNamePrefix ? `${classNamePrefix}-` : '';
+    const prefix = classNamePrefix ? `${classNamePrefix}-` : "";
     const classes = {
       notifications: `${prefix}notifications`,
       icon: `${prefix}icon`,
@@ -117,15 +124,13 @@ class Notifications extends Component {
       items: `${prefix}items`,
       emptyNotifications: `${prefix}empty-notifications`,
       footer: `${prefix}footer`,
-      seeAll: `${prefix}see-all`
+      seeAll: `${prefix}see-all`,
     };
     return classes;
   };
 
   render() {
-    const {
-      show, styles, loading, data, classes
-    } = this.state;
+    const { show, styles, loading, data, classes } = this.state;
     const {
       viewAllBtn,
       icon,
@@ -133,21 +138,22 @@ class Notifications extends Component {
       width,
       headerBackgroundColor,
       header,
-      notificationCard
+      notificationCard,
     } = this.props;
 
     const { title, option } = header;
     const CustomComponent = notificationCard;
     const dataLength = data.length;
 
-    const cardList = Array.isArray(data)
-      && (CustomComponent
+    const cardList =
+      Array.isArray(data) &&
+      (CustomComponent
         ? data.map((item) => (
-          <CustomComponent key={item.message} {...this.props} data={item} />
-        ))
+            <CustomComponent key={item.message} {...this.props} data={item} />
+          ))
         : data.map((item) => (
-          <Card key={item.message} {...this.props} data={item} />
-        )));
+            <Card key={item.message} {...this.props} data={item} />
+          )));
 
     return (
       <div className={classes.notifications} ref={this.containerRef}>
@@ -163,9 +169,9 @@ class Notifications extends Component {
           {dataLength > 0 && (
             <div
               className={classes.count}
-              style={dataLength >= 100 ? { fontSize: '8px' } : null}
+              style={dataLength >= 100 ? { fontSize: "8px" } : null}
             >
-              {dataLength < 100 ? dataLength : '99+'}
+              {dataLength < 100 ? dataLength : "99+"}
             </div>
           )}
         </div>
@@ -176,8 +182,8 @@ class Notifications extends Component {
           style={{
             ...styles,
             width,
-            visibility: show ? 'visible' : 'hidden',
-            opacity: show ? 1 : 0
+            visibility: show ? "visible" : "hidden",
+            opacity: show ? 1 : 0,
           }}
         >
           <div
@@ -231,36 +237,39 @@ Notifications.defaultProps = {
   height: null,
   width: null,
   header: {
-    title: 'Notifications',
-    option: { text: 'Mark all as read', onClick: () => {} }
+    title: "Notifications",
+    option: { text: "Mark all as read", onClick: () => {} },
   },
   headerBackgroundColor: null,
-  classNamePrefix: '',
+  classNamePrefix: "",
   icon: defaultIcon,
-  style: {}
+  style: {},
 };
 
 Notifications.propTypes = {
   data: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   notificationCard: PropTypes.oneOfType([
     PropTypes.func,
-    PropTypes.instanceOf(React.Component)
+    PropTypes.instanceOf(React.Component),
   ]),
   fetchData: PropTypes.func,
   header: PropTypes.shape({
     title: PropTypes.string,
-    option: PropTypes.shape({ text: PropTypes.string, onClick: PropTypes.func })
+    option: PropTypes.shape({
+      text: PropTypes.string,
+      onClick: PropTypes.func,
+    }),
   }),
   viewAllBtn: PropTypes.shape({
     text: PropTypes.string,
-    linkTo: PropTypes.string
+    linkTo: PropTypes.string,
   }),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   headerBackgroundColor: PropTypes.string,
   classNamePrefix: PropTypes.string,
   icon: PropTypes.string,
-  style: PropTypes.shape({})
+  style: PropTypes.shape({}),
 };
 
 export default Notifications;
