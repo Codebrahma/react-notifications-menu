@@ -18,6 +18,7 @@ class Notifications extends Component {
       data,
       styles: style || {},
       classes: this.classNameGenerator(),
+      notificationCount: data.length || 0,
     };
 
     this.scrollRef = React.createRef();
@@ -73,7 +74,8 @@ class Notifications extends Component {
   componentWillReceiveProps(nextProps) {
     // You don't have to do this check first, but it can help prevent an unneeded render
     if (nextProps.data !== this.state.data) {
-      this.setState({ data: nextProps.data });
+      const diff = nextProps.data.length - this.state.data.length;
+      this.setState({ data: nextProps.data, notificationCount: diff });
     }
   }
 
@@ -84,11 +86,10 @@ class Notifications extends Component {
   }
 
   handleClickOutside = (event) => {
-    if (
-      this.containerRef &&
-      !this.containerRef.current.contains(event.target)
-    ) {
-      this.setState({ show: false });
+    if (this.containerRef && this.containerRef.current) {
+      if (!this.containerRef.current.contains(event.target)) {
+        this.setState({ show: false });
+      }
     }
   };
 
@@ -130,7 +131,14 @@ class Notifications extends Component {
   };
 
   render() {
-    const { show, styles, loading, data, classes } = this.state;
+    const {
+      show,
+      styles,
+      loading,
+      data,
+      classes,
+      notificationCount,
+    } = this.state;
     const {
       viewAllBtn,
       icon,
@@ -159,19 +167,19 @@ class Notifications extends Component {
       <div className={classes.notifications} ref={this.containerRef}>
         <div
           className={classes.icon}
-          onClick={() => this.setState({ show: !show })}
+          onClick={() => this.setState({ show: !show, notificationCount: 0 })}
         >
           <img
             src={icon || defaultIcon}
             alt="notify"
             className={classes.image}
           />
-          {dataLength > 0 && (
+          {notificationCount > 0 && (
             <div
               className={classes.count}
-              style={dataLength >= 100 ? { fontSize: "8px" } : null}
+              style={notificationCount >= 100 ? { fontSize: "8px" } : null}
             >
-              {dataLength < 100 ? dataLength : "99+"}
+              {notificationCount < 100 ? notificationCount : "99+"}
             </div>
           )}
         </div>
