@@ -71,12 +71,12 @@ class Notifications extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    // You don't have to do this check first, but it can help prevent an unneeded render
-    if (nextProps.data !== this.state.data) {
-      const diff = nextProps.data.length - this.state.data.length;
-      this.setState({ data: nextProps.data, notificationCount: diff });
+  static getDerivedStateFromProps(props, state) {
+    if (props.data !== state.data) {
+      const diff = props.data.length - state.data.length;
+      return { data: props.data, notificationCount: diff };
     }
+    return state;
   }
 
   componentWillUnmount() {
@@ -131,14 +131,8 @@ class Notifications extends Component {
   };
 
   render() {
-    const {
-      show,
-      styles,
-      loading,
-      data,
-      classes,
-      notificationCount,
-    } = this.state;
+    const { show, styles, loading, data, classes, notificationCount } =
+      this.state;
     const {
       viewAllBtn,
       icon,

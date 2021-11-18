@@ -45,4 +45,4 @@ To know more, visit [react-notifications-menu](https://react-notifications-menu.
 
 ## Demo
 
-To view the demo of the Combo Box component in the code sandbox. Click <a style="color:#cc3a38" href="https://codesandbox.io/s/strange-forest-1kwtb?file=/src/App.js">here</a>.
+To view the demo of the Notification component in the code sandbox. Click <a style="color:#cc3a38" href="https://codesandbox.io/s/strange-forest-1kwtb?file=/src/App.js">here</a>.
