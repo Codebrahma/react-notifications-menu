@@ -1,18 +1,18 @@
-import React from "react";
-import PropTypes from "prop-types";
-import "./card.scss";
+import React from 'react';
+import PropTypes from 'prop-types';
+import './card.scss';
 
 const Card = ({
-  imagePosition,
-  classNamePrefix,
-  cardOption,
-  renderImage,
-  data,
+  imagePosition = 'left',
+  classNamePrefix = null,
+  cardOption = null,
+  renderImage = true,
+  data = null,
 }) => {
   const { image, message, receivedTime, detailPage } = data;
 
   const classNameGenerator = () => {
-    const prefix = classNamePrefix ? `${classNamePrefix}-` : "";
+    const prefix = classNamePrefix ? `${classNamePrefix}-` : '';
     const classes = {
       card: `${prefix}card`,
       content: `${prefix}content`,
@@ -34,7 +34,7 @@ const Card = ({
         <div
           className={classes.content}
           style={
-            imagePosition === "right" ? { flexDirection: "row-reverse" } : {}
+            imagePosition === 'right' ? { flexDirection: 'row-reverse' } : {}
           }
         >
           {renderImage && (
@@ -59,14 +59,6 @@ const Card = ({
   );
 };
 
-Card.defaultProps = {
-  renderImage: true,
-  imagePosition: "left",
-  data: null,
-  classNamePrefix: null,
-  cardOption: null,
-};
-
 Card.propTypes = {
   data: PropTypes.shape({
     image: PropTypes.string,
@@ -76,7 +68,8 @@ Card.propTypes = {
   }),
   renderImage: PropTypes.bool,
   cardOption: PropTypes.func,
-  imagePosition: PropTypes.oneOf(["left", "right"]),
+  imagePosition: PropTypes.oneOf(['left', 'right']),
   classNamePrefix: PropTypes.string,
 };
+
 export default Card;
