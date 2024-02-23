@@ -1,10 +1,10 @@
-import React, { Component, Fragment } from "react";
-import PropTypes from "prop-types";
-import axios from "axios";
-import Card from "./card";
-import Spinner from "./spinner";
-import defaultIcon from "./assets/default_bell.svg";
-import "./styles.scss";
+import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
+import axios from 'axios';
+import Card from './card';
+import Spinner from './spinner';
+import defaultIcon from './assets/default_bell.svg';
+import './styles.scss';
 
 class Notifications extends Component {
   constructor(props) {
@@ -32,12 +32,12 @@ class Notifications extends Component {
     const { data, styles } = this.state;
     const { fetchData } = this.props;
 
-    document.addEventListener("mousedown", (event) => {
+    document.addEventListener('mousedown', (event) => {
       this.handleClickOutside(event);
     });
 
     // If data is a URL
-    if (typeof data === "string" && this.validateURL(data)) {
+    if (typeof data === 'string' && this.validateURL(data)) {
       axios
         .get(data)
         .then((response) => this.setState({ data: response.data }))
@@ -59,7 +59,7 @@ class Notifications extends Component {
     if (fetchData) {
       // Infinite scroll to notification container
       if (data.length > 0) {
-        scrollRef.addEventListener("scroll", () => {
+        scrollRef.addEventListener('scroll', () => {
           if (
             scrollRef.scrollTop + scrollRef.clientHeight >=
             scrollRef.scrollHeight
@@ -80,7 +80,7 @@ class Notifications extends Component {
   }
 
   componentWillUnmount() {
-    document.removeEventListener("mousedown", (event) => {
+    document.removeEventListener('mousedown', (event) => {
       this.handleClickOutside(event);
     });
   }
@@ -95,8 +95,8 @@ class Notifications extends Component {
 
   validateURL = (myURL) => {
     const pattern = new RegExp(
-      "^(https?:\\/\\/)?((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|((\\d{1,3}\\.){3}\\d{1,3}))(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*(\\?[;&a-z\\d%_.~+=-]*)?(\\#[-a-z\\d_]*)?$",
-      "i"
+      '^(https?:\\/\\/)?((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|((\\d{1,3}\\.){3}\\d{1,3}))(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*(\\?[;&a-z\\d%_.~+=-]*)?(\\#[-a-z\\d_]*)?$',
+      'i'
     );
     return pattern.test(myURL);
   };
@@ -112,7 +112,7 @@ class Notifications extends Component {
 
   classNameGenerator = () => {
     const { classNamePrefix } = this.props;
-    const prefix = classNamePrefix ? `${classNamePrefix}-` : "";
+    const prefix = classNamePrefix ? `${classNamePrefix}-` : '';
     const classes = {
       notifications: `${prefix}notifications`,
       icon: `${prefix}icon`,
@@ -131,8 +131,14 @@ class Notifications extends Component {
   };
 
   render() {
-    const { show, styles, loading, data, classes, notificationCount } =
-      this.state;
+    const {
+      show,
+      styles,
+      loading,
+      data,
+      classes,
+      notificationCount,
+    } = this.state;
     const {
       viewAllBtn,
       icon,
@@ -171,9 +177,9 @@ class Notifications extends Component {
           {notificationCount > 0 && (
             <div
               className={classes.count}
-              style={notificationCount >= 100 ? { fontSize: "8px" } : null}
+              style={notificationCount >= 100 ? { fontSize: '8px' } : null}
             >
-              {notificationCount < 100 ? notificationCount : "99+"}
+              {notificationCount < 100 ? notificationCount : '99+'}
             </div>
           )}
         </div>
@@ -184,7 +190,7 @@ class Notifications extends Component {
           style={{
             ...styles,
             width,
-            visibility: show ? "visible" : "hidden",
+            visibility: show ? 'visible' : 'hidden',
             opacity: show ? 1 : 0,
           }}
         >
@@ -239,11 +245,11 @@ Notifications.defaultProps = {
   height: null,
   width: null,
   header: {
-    title: "Notifications",
-    option: { text: "Mark all as read", onClick: () => {} },
+    title: 'Notifications',
+    option: { text: 'Mark all as read', onClick: () => {} },
   },
   headerBackgroundColor: null,
-  classNamePrefix: "",
+  classNamePrefix: '',
   icon: defaultIcon,
   style: {},
 };
